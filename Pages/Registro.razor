@@ -1,0 +1,110 @@
+﻿@page "/registro"
+
+<style>
+    :root {
+        --verde-botella: #006b5b;
+        --verde-hover: #004f44;
+        --gris-claro: #f3f4f6;
+        --gris-texto: #555;
+    }
+
+    body {
+        background-color: var(--gris-claro);
+        font-family: 'Segoe UI', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    .registro-container {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.08);
+        width: 100%;
+        max-width: 450px;
+    }
+
+        .registro-container h2 {
+            margin-bottom: 1rem;
+            color: var(--verde-botella);
+            text-align: center;
+        }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--gris-texto);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+    button[type="submit"] {
+        width: 100%;
+        background-color: var(--verde-botella);
+        color: #fff;
+        padding: 0.9rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        button[type="submit"]:hover {
+            background-color: var(--verde-hover);
+        }
+
+    .form-footer {
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+        .form-footer a {
+            color: var(--verde-botella);
+        }
+
+            .form-footer a:hover {
+                text-decoration: underline;
+            }
+</style>
+
+<div class="registro-container">
+    <h2>Crear Cuenta</h2>
+    <form>
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" required />
+        </div>
+        <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input type="text" id="apellido" required />
+        </div>
+        <div class="form-group">
+            <label for="correo">Correo electrónico</label>
+            <input type="email" id="correo" required />
+        </div>
+        <div class="form-group">
+            <label for="contrasena">Contraseña</label>
+            <input type="password" id="contrasena" required />
+        </div>
+        <div class="form-group">
+            <label for="confirmar">Confirmar Contraseña</label>
+            <input type="password" id="confirmar" required />
+        </div>
+        <div class="form-footer">
+            <p>¿Ya tienes cuenta? <NavLink href="/login">Inicia sesión aquí</NavLink></p>
+        </div>
+    </form>
+</div>

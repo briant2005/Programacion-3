@@ -1,0 +1,125 @@
+/* RESETEO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+    color: #333;
+}
+
+/* ====== NAV ====== */
+nav {
+    width: 100%;
+    background-color: var(--verde-botella);
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+    nav ul {
+        display: flex;
+        list-style: none;
+    }
+
+        nav ul li {
+            margin-left: 1rem;
+        }
+
+            nav ul li.logo-pequeno img,
+            nav ul li.logo-movil img {
+                width: 120px;
+            }
+
+.nav-link {
+    color: #f4f4f4;
+    font-size: 1rem;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+.menu-button {
+    cursor: pointer;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--verde-botella);
+    width: 70%;
+    height: 100%;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 1rem;
+    display: none;
+}
+
+    .sidebar li {
+        margin: 1rem 0;
+    }
+
+/* ====== HEADER BIENVENIDA ====== */
+.bienvenida {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    background: url('/img/fondo-biblioteca.jpg') center/cover no-repeat;
+}
+
+    .bienvenida .overlay {
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    .bienvenida .contenido {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        text-align: center;
+    }
+
+    .bienvenida h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .bienvenida p {
+        font-size: 1.25rem;
+    }
+
+/* ====== FOOTER ====== */
+.footer {
+    background-color: var(--gris-blanco);
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    color: var(--gris-medio);
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+    nav ul.menu-desktop {
+        display: none;
+    }
+
+    nav ul.mobile-menu {
+        display: flex;
+    }
+
+    .bienvenida {
+        height: 40vh;
+    }
+}

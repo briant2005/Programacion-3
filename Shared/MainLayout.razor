@@ -1,0 +1,73 @@
+﻿@inherits LayoutComponentBase
+
+<nav>
+    <!-- Menú escritorio -->
+    <ul class="menu-desktop">
+        <li class="logo-pequeno">
+            <NavLink href="/">
+                <img src="img/logo_LM sin fondo.png" alt="Logo" />
+            </NavLink>
+        </li>
+        <li><NavLink href="/catalogo" class="nav-link">Libros</NavLink></li>
+        <li><NavLink href="/prestamos" class="nav-link">Préstamos</NavLink></li>
+        <li><NavLink href="/perfil" class="nav-link">Perfil</NavLink></li>
+        <li><NavLink href="/reportes" class="nav-link">Reportes</NavLink></li>
+        <li><NavLink href="/reservas" class="nav-link">Reservas</NavLink></li>
+    </ul>
+
+    <!-- Menú móvil -->
+    <ul class="mobile-menu">
+        <li class="logo-movil">
+            <NavLink href="/">
+                <img src="img/logo_LM sin fondo.png" alt="Logo" />
+            </NavLink>
+        </li>
+        <li class="menu-button" @onclick="ShowSidebar">
+            <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#e3e3e3">
+                <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+            </svg>
+        </li>
+    </ul>
+
+    <!-- Sidebar desplegable -->
+    <ul class="sidebar" style="display:none;">
+        <li class="close-button" @onclick="HideSidebar">
+            <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#e3e3e3">
+                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+            </svg>
+        </li>
+        <li><NavLink href="/catalogo" class="nav-link">Libros</NavLink></li>
+        <li><NavLink href="/prestamos" class="nav-link">Préstamos</NavLink></li>
+        <li><NavLink href="/perfil" class="nav-link">Perfil</NavLink></li>
+        <li><NavLink href="/reportes" class="nav-link">Reportes</NavLink></li>
+        <li><NavLink href="/reservas" class="nav-link">Reservas</NavLink></li>
+    </ul>
+</nav>
+
+<header class="bienvenida">
+    <div class="overlay"></div>
+    <div class="contenido">
+        <h1>¡Bienvenido a Libromaniacos!</h1>
+        <p>Explora el universo de tus libros favoritos</p>
+    </div>
+</header>
+
+<div class="container">
+    @Body
+</div>
+
+@code {
+    void ShowSidebar()
+    {
+        // Llama a la función JS para mostrar el sidebar
+        JS.InvokeVoidAsync("showSidebar");
+    }
+
+    void HideSidebar()
+    {
+        JS.InvokeVoidAsync("hideSidebar");
+    }
+
+    [Inject]
+    private IJSRuntime JS { get; set; }
+}

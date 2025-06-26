@@ -1,0 +1,135 @@
+:root {
+    --verde-botella: #006b5b;
+    --verde-oscuro: #00473d;
+    --gris-oscuro: #333;
+    --gris-claro: #666;
+    --gris-medio: #999;
+    --gris-blanco: #f4f4f4;
+    --fucsia: #d43383;
+    --texto-oscuro: #222;
+    --texto-claro: #fff;
+    --amarillo: #f4c532;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--gris-blanco);
+    color: var(--texto-oscuro);
+}
+
+a {
+    color: var(--verde-botella);
+    text-decoration: none;
+}
+
+h1, h2, h3, h4 {
+    color: var(--verde-oscuro);
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* Contenedor de tarjetas */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+/* Tarjeta individual */
+.card {
+    background: var(--texto-claro);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-position: center;
+    background-size: cover;
+}
+
+/* Clases específicas de imágenes (usa las rutas de tus jpg) */
+.card1 {
+    background-image: url('/img/14.jpg');
+}
+
+.card2 {
+    background-image: url('/img/15.jpg');
+}
+
+.card3 {
+    background-image: url('/img/16.jpg');
+}
+
+.card4 {
+    background-image: url('/img/17.jpg');
+}
+
+.card-text {
+    padding: 1rem;
+    flex-grow: 1;
+}
+
+    .card-text .date {
+        font-size: 0.9rem;
+        color: var(--gris-medio);
+    }
+
+    .card-text h2 {
+        margin: 0.5rem 0;
+        font-size: 1.25rem;
+    }
+
+    .card-text p {
+        font-size: 0.95rem;
+        line-height: 1.4;
+    }
+
+.card-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.75rem;
+    background: var(--gris-blanco);
+}
+
+    .card-stats .stat {
+        flex: 1;
+        text-align: center;
+    }
+
+    .card-stats .border {
+        border-left: 1px solid var(--gris-claro);
+        border-right: 1px solid var(--gris-claro);
+    }
+
+.btn-buy {
+    padding: 0.5rem 1rem;
+    background: var(--verde-botella);
+    color: var(--texto-claro);
+    border-radius: 0.25rem;
+    transition: background 0.3s;
+}
+
+    .btn-buy:hover {
+        background: var(--verde-oscuro);
+    }
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+    .cards-container {
+        grid-template-columns: 1fr;
+    }
+}
