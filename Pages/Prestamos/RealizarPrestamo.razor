@@ -1,0 +1,92 @@
+﻿@page "/prestamos/realizar"
+@attribute [Authorize(Roles = "Admin, Bibliotecario, Usuario")]
+@using BBAPP.Data.Models
+@using BBAPP.Services 
+@using Microsoft.AspNetCore.Identity
+@inject IPrestamoService PrestamoService
+@inject NavigationManager NavigationManager
+@inject UserManager<UsuarioAplicacion> UserManager
+
+<h3>Realizar Nuevo Préstamo</h3>
+
+<EditForm Model="@nuevoPrestamo" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group mb-3">
+        <label for="usuarioSelect">Usuario:</label>
+        <InputSelect id="usuarioSelect" @bind-Value="nuevoPrestamo.UsuarioId" class="form-control">
+            <option value="">Seleccione un usuario</option>
+            @if (usuarios != null)
+            {
+                @foreach (var user in usuarios)
+                {
+                    <option value="@user.Id">@user.Nombre @user.Apellido (@user.Email)</option>
+                }
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => nuevoPrestamo.UsuarioId)" class="text-danger" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="libroSelect">Libro:</label>
+        <InputSelect id="libroSelect" @bind-Value="nuevoPrestamo.LibroId" class="form-control">
+            <option value="">Seleccione un libro</option>
+            @if (librosDisponibles != null)
+            {
+                @foreach (var libro in librosDisponibles)
+                {
+                    <option value="@libro.id">@libro.Titulo - @libro.Autor (@libro.CopiasDisponibles disponibles)</option> @* Mostrar copias disponibles *@
+                }
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => nuevoPrestamo.LibroId)" class="text-danger" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="fechaVencimiento">Fecha de Vencimiento:</label> 
+        <InputDate id="fechaVencimiento" @bind-Value="nuevoPrestamo.FechaVencimiento" class="form-control" /> 
+        <ValidationMessage For="@(() => nuevoPrestamo.FechaVencimiento)" class="text-danger" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Registrar Préstamo</button>
+    <a href="/prestamos" class="btn btn-secondary">Cancelar</a>
+
+    @if (!string.IsNullOrEmpty(mensajeError))
+    {
+        <div class="alert alert-danger mt-3" role="alert">@mensajeError</div>
+    }
+</EditForm>
+
+@code {
+    private Prestamo nuevoPrestamo = new Prestamo();
+    private IEnumerable<Libro> librosDisponibles;
+    private IEnumerable<UsuarioAplicacion> usuarios;
+    private string mensajeError;
+
+    protected override async Task OnInitializedAsync()
+    {
+        librosDisponibles = await PrestamoService.GetLibrosDisponiblesAsync();
+        usuarios = await PrestamoService.GetTodosUsuariosAsync();
+
+        nuevoPrestamo.FechaVencimiento = DateTime.Today.AddDays(14);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        mensajeError = string.Empty; 
+        try
+        {
+            await PrestamoService.RealizarPrestamoAsync(nuevoPrestamo);
+            NavigationManager.NavigateTo("/prestamos"); 
+        }
+        catch (InvalidOperationException ex)
+        {
+            mensajeError = $"Error: {ex.Message}";
+        }
+        catch (Exception ex)
+        {
+            mensajeError = $"Ocurrió un error inesperado: {ex.Message}";
+        }
+    }
+}

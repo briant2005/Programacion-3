@@ -1,0 +1,110 @@
+﻿@page "/perfil"
+@attribute [Authorize] 
+@using BBAPP.Data.Models
+@using BBAPP.Services 
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.Extensions.DependencyInjection
+
+@inject IPrestamoService PrestamoService
+@inject IServiceScopeFactory ScopeFactory
+@inject NavigationManager NavigationManager
+
+<h3>Mi Perfil</h3>
+
+@if (usuarioActual == null)
+{
+    <p><em>Cargando información del perfil...</em></p>
+}
+else
+{
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>Información Personal</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Email:</strong> @usuarioActual.Email</p>
+            <p><strong>Nombre:</strong> @usuarioActual.Nombre</p>
+            <p><strong>Apellido:</strong> @usuarioActual.Apellido</p>
+            <p><strong>Nombre de Usuario:</strong> @usuarioActual.UserName</p>
+            @* Puedes añadir más campos aquí si los tienes en UsuarioAplicacion *@
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Historial de Préstamos</h4>
+        </div>
+        <div class="card-body">
+            @if (historialPrestamos == null)
+            {
+                <p><em>Cargando historial de préstamos...</em></p>
+            }
+            else if (!historialPrestamos.Any())
+            {
+                <p>No tienes préstamos registrados.</p>
+            }
+            else
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Libro</th>
+                            <th>Fecha Préstamo</th>
+                            <th>Fecha Vencimiento</th>
+                            <th>Fecha Devolución Real</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var prestamo in historialPrestamos)
+                        {
+                            <tr>
+                                <td>@prestamo.TituloLibro</td>
+                                <td>@prestamo.FechaPrestamo.ToShortDateString()</td>
+                                <td>@prestamo.FechaVencimiento.ToShortDateString()</td>
+                                <td>@(prestamo.FechaDevolucion?.ToShortDateString() ?? "Pendiente")</td>
+                                <td>@prestamo.Estado.ToString()</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    private UsuarioAplicacion usuarioActual;
+    private IEnumerable<PrestamoDto> historialPrestamos;
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await authenticationState;
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            // Usar un ámbito de servicio aislado para UserManager y PrestamoService
+            using (var scope = ScopeFactory.CreateScope())
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<UsuarioAplicacion>>();
+                var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
+
+                usuarioActual = await userManager.GetUserAsync(user);
+
+                if (usuarioActual != null)
+                {
+                    historialPrestamos = await prestamoService.ObtenerPrestamosDeUsuarioAsync(usuarioActual.Id);
+                }
+            }
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/Identity/Account/Login"); // Redirigir a login si no está autenticado
+        }
+    }
+}

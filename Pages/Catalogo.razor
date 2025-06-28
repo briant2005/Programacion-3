@@ -1,11 +1,115 @@
 ﻿@page "/catalogo"
-
-@* Pega aquí el contenido del <body> de catalogo.html,
-   reemplazando rutas de imagen y estilos si es necesario. *@
+@attribute [Authorize] 
+@inject ILibroService LibroService
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+@using BBAPP.Data.Models 
+@using Microsoft.AspNetCore.Components.Authorization
 
 <div class="catalogo-container">
-    <!-- Ejemplo de estructura:
     <h1>Catálogo de Libros</h1>
-    <div class="libro-card">…</div>
-    -->
+
+    @* Muestra un botón para añadir libros solo si el usuario es Admin o Bibliotecario *@
+    <AuthorizeView Roles="Admin, Bibliotecario">
+        <Authorized>
+            <div class="mb-3">
+                <button class="btn btn-primary" @onclick="NavegarParaAnadirLibro">Añadir Nuevo Libro</button>
+            </div>
+        </Authorized>
+    </AuthorizeView>
+
+    @if (cargando)
+    {
+        <p><em>Cargando libros...</em></p>
+    }
+    else if (libros == null || !libros.Any())
+    {
+        <p>No hay libros disponibles en el catálogo en este momento.</p>
+    }
+    else
+    {
+        <div class="libros-grid">
+            @foreach (var libro in libros)
+            {
+                <div class="libro-card">
+                    <img src="https://placehold.co/150x200/cccccc/000000?text=Portada" alt="Portada de @libro.Titulo" class="libro-portada" />
+                    <div class="libro-info">
+                        <h3>@libro.Titulo</h3>
+                        <p><strong>Autor:</strong> @libro.Autor</p>
+                        <p><strong>Género:</strong> @libro.Genero</p>
+                        <p><strong>Año:</strong> @libro.AnioPublicacion</p>
+                        <p><strong>Copias Disponibles:</strong> @libro.CopiasDisponibles / @libro.TotalCopias</p>
+                        <button class="btn btn-info btn-sm" @onclick="() => VerDetalles(libro.id)">Ver Detalles</button>
+
+                        <AuthorizeView Roles="Admin, Bibliotecario">
+                            <Authorized>
+                                <button class="btn btn-warning btn-sm" @onclick="() => EditarLibro(libro.id)">Editar</button>
+                                <button class="btn btn-danger btn-sm" @onclick="() => ConfirmarEliminar(libro.id)">Eliminar</button>
+                            </Authorized>
+                        </AuthorizeView>
+                    </div>
+                </div>
+            }
+            <!-- Cierre del grid de libros -->
+        </div>
+    }
 </div>
+
+@code {
+    private IEnumerable<Libro> libros; // CAMBIADO: Ahora usa el modelo Libro
+    private bool cargando = true;
+
+    // Propiedad para acceder al estado de autenticación (para verificar roles)
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            libros = await LibroService.GetTodosLibrosAsync(); // CAMBIADO: Llamada a GetTodosLibrosAsync
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al cargar libros: {ex.Message}");
+            libros = new List<Libro>(); // Asegurar que no sea null
+        }
+        finally
+        {
+            cargando = false;
+        }
+    }
+
+    private void NavegarParaAnadirLibro()
+    {
+        Navigation.NavigateTo("/libros/anadir");
+    }
+
+    private void VerDetalles(int idLibro)
+    {
+        Navigation.NavigateTo($"/libros/{idLibro}");
+    }
+
+    private void EditarLibro(int idLibro)
+    {
+        Navigation.NavigateTo($"/libros/editar/{idLibro}");
+    }
+
+    private async Task ConfirmarEliminar(int idLibro)
+    {
+        bool confirmacion = await JS.InvokeAsync<bool>("confirm", "¿Estás seguro de que deseas eliminar este libro? (Se realizará una eliminación suave)");
+        if (confirmacion)
+        {
+            var exito = await LibroService.DeleteLibroAsync(idLibro); // CAMBIADO: Llamada a DeleteLibroAsync
+            if (exito)
+            {
+                libros = await LibroService.GetTodosLibrosAsync(); // Recargar los libros
+                StateHasChanged();
+            }
+            else
+            {
+                await JS.InvokeVoidAsync("alert", "No se pudo eliminar el libro.");
+            }
+        }
+    }
+}

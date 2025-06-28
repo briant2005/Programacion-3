@@ -1,0 +1,399 @@
+﻿@page "/libros/{Id:int}"
+@attribute [Authorize]
+@inject ILibroService LibroService
+@inject IPrestamoService PrestamoService
+@inject IReservaService ReservaService
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+@inject UserManager<UsuarioAplicacion> UserManager
+@inject IServiceScopeFactory ScopeFactory 
+@using BBAPP.Data.Models @* ¡Asegúrate de usar el modelo Libro aquí! *@
+@using BBAPP.DTOs @* Mantén esto si aún usas otros DTOs en la página (ej. CrearPrestamoDto) *@
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.Extensions.DependencyInjection
+@using Microsoft.AspNetCore.Identity @* Asegurarse de que UserManager esté resuelto *@
+@using System.Security.Claims
+
+<h3>Detalles del Libro</h3>
+
+@if (libro == null)
+{
+    <p><em>Cargando detalles del libro...</em></p>
+}
+else
+{
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>@libro.Titulo</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="https://placehold.co/200x300/cccccc/000000?text=Portada" alt="Portada de @libro.Titulo" class="img-fluid mb-3" />
+                </div>
+                <div class="col-md-8">
+                    <p><strong>Autor:</strong> @libro.Autor</p>
+                    <p><strong>Género:</strong> @libro.Genero</p>
+                    <p><strong>Año de Publicación:</strong> @libro.AnioPublicacion</p>
+                    <p><strong>Copias Totales:</strong> @libro.TotalCopias</p>
+                    <p><strong>Copias Disponibles:</strong> @CopiasDisponiblesReales</p> @* CAMBIO: Muestra las copias realmente disponibles *
+                    <p><strong>Reservas Pendientes:</strong> @numeroReservas</p>
+
+                    @if (!string.IsNullOrEmpty(mensajeError))
+                    {
+                        <div class="alert alert-danger mt-3" role="alert">@mensajeError</div>
+                    }
+                    @if (!string.IsNullOrEmpty(mensajeExito))
+                    {
+                        <div class="alert alert-success mt-3" role="alert">@mensajeExito</div>
+                    }
+
+                    <div class="mt-4">
+                        <button class="btn btn-primary" @onclick="VolverAlCatalogo">Volver al Catálogo</button>
+
+                        @* Botón de Préstamo (visible solo si se puede solicitar préstamo y el usuario no es Admin/Bibliotecario) *@
+                        @if (CanUserRequestLoan)
+                        {
+                            <AuthorizeView>
+                                <Authorized>
+                                    <button class="btn btn-success ml-2" @onclick="RealizarPrestamo">Pedir Préstamo</button>
+                                </Authorized>
+                                <NotAuthorized>
+                                    <button class="btn btn-success ml-2" disabled title="Debes iniciar sesión para pedir préstamos">Pedir Préstamo</button>
+                                </NotAuthorized>
+                            </AuthorizeView>
+                        }
+                        else if (usuarioEsAdmin || usuarioEsBibliotecario)
+                        {
+                            <button class="btn btn-success ml-2" disabled title="Administradores y Bibliotecarios no piden préstamos desde aquí. Use 'Realizar Préstamo' general.">Pedir Préstamo</button>
+                        }
+                        else if (prestamoActivoUsuario != null)
+                        {
+                            <button class="btn btn-success ml-2" disabled title="Ya tienes este libro prestado.">Ya Prestado</button>
+                        }
+                        else if (reservaActivaUsuarioParaEsteLibro != null)
+                        {
+                            <button class="btn btn-success ml-2" disabled title="Tienes una reserva activa para este libro. Reclámalo.">Ya Reservado (Reclamar)</button>
+                        }
+                        else // Si no puede pedir préstamo y no es admin/bibliotecario, ni tiene préstamo/reserva para reclamar
+                        {
+                            <button class="btn btn-secondary ml-2" disabled title="No disponible para préstamo inmediato (reservado o sin copias).">No Disponible</button>
+                        }
+
+                        @* Botón de Reserva (visible para Usuarios, si puede realizar una nueva reserva) *@
+                        @if (CanUserMakeNewReservation)
+                        {
+                            <AuthorizeView>
+                                <Authorized>
+                                    <button class="btn btn-info ml-2" @onclick="RealizarReserva">Reservar Libro</button>
+                                </Authorized>
+                                <NotAuthorized>
+                                    <button class="btn btn-info ml-2" disabled title="Solo usuarios pueden reservar libros">Reservar Libro</button>
+                                </NotAuthorized>
+                            </AuthorizeView>
+                        }
+                        else if (usuarioEsAdmin || usuarioEsBibliotecario)
+                        {
+                            <button class="btn btn-info ml-2" disabled title="Administradores y Bibliotecarios no reservan desde aquí.">Reservar Libro</button>
+                        }
+                        else if (usuarioTieneReservaActiva)
+                        {
+                            <button class="btn btn-info ml-2" disabled title="Ya tienes una reserva activa para este libro.">Ya Reservado</button>
+                        }
+                        else if (prestamoActivoUsuario != null)
+                        {
+                            <button class="btn btn-info ml-2" disabled title="Ya tienes este libro prestado. No puedes reservar.">Ya Prestado</button>
+                        }
+                        else if (CopiasDisponiblesReales > 0) // CAMBIO: Si hay copias reales disponibles para préstamo inmediato, no es necesario reservar
+                        {
+                            <button class="btn btn-info ml-2" disabled title="Hay copias disponibles para préstamo inmediato, no es necesario reservar.">Reservar Libro</button>
+                        }
+                        else // Fallback para otros escenarios deshabilitados
+                        {
+                            <button class="btn btn-info ml-2" disabled>Reservar Libro</button>
+                        }
+
+                        @* Botón Devolver Libro (visible si el usuario tiene un préstamo activo para este libro y no es Admin/Bibliotecario) *@
+                        @if (prestamoActivoUsuario != null && !(usuarioEsAdmin || usuarioEsBibliotecario))
+                        {
+                            <button class="btn btn-warning ml-2" @onclick="ProcesarDevolucion">Devolver Libro</button>
+                        }
+
+                        @* Botón Reclamar Libro (visible si el usuario tiene una reserva activa para este libro y el libro está disponible para ser reclamado) *@
+                        @if (reservaActivaUsuarioParaEsteLibro != null && libro.CopiasDisponibles > 0 && !(usuarioEsAdmin || usuarioEsBibliotecario))
+                        {
+                            <button class="btn btn-success ml-2" @onclick="ReclamarReserva">Reclamar Libro</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Libro libro;
+    private int numeroReservas; // Número de reservas pendientes (en cola)
+    private string mensajeError;
+    private string mensajeExito;
+    private string currentUserId;
+    private bool usuarioTieneReservaActiva; // True si el usuario tiene CUALQUIER reserva (pendiente o lista para recoger) para este libro
+    private PrestamoDto prestamoActivoUsuario; // Almacena el préstamo activo del usuario para este libro
+    private Reserva reservaActivaUsuarioParaEsteLibro; // Almacena la reserva activa del usuario que está "ListaParaRecoger"
+    private bool usuarioEsAdmin;
+    private bool usuarioEsBibliotecario;
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; }
+
+    // Nueva propiedad para las copias realmente disponibles para préstamo (descontando las reservadas)
+    private int CopiasDisponiblesReales => libro != null ? Math.Max(0, libro.CopiasDisponibles - numeroReservas) : 0;
+
+    // Propiedad de ayuda para determinar si el usuario puede solicitar un préstamo
+    private bool CanUserRequestLoan =>
+        currentUserId != null && // El usuario está autenticado
+        !(usuarioEsAdmin || usuarioEsBibliotecario) && // No es admin ni bibliotecario
+        prestamoActivoUsuario == null && // No tiene un préstamo activo para este libro
+        reservaActivaUsuarioParaEsteLibro == null && // No tiene una reserva lista para reclamar (le toca a otro o no tiene)
+        libro != null && // El libro ya ha sido cargado
+        CopiasDisponiblesReales > 0; // CAMBIO: Ahora usa las copias reales disponibles
+
+
+    // Propiedad de ayuda para determinar si el usuario puede hacer una nueva reserva
+    private bool CanUserMakeNewReservation =>
+        currentUserId != null && // El usuario está autenticado
+        !(usuarioEsAdmin || usuarioEsBibliotecario) && // No es admin ni bibliotecario
+        prestamoActivoUsuario == null && // No tiene un préstamo activo para este libro
+        !usuarioTieneReservaActiva && // No tiene CUALQUIER reserva activa (pendiente o lista para recoger) para este libro
+        libro != null && // El libro ya ha sido cargado
+        CopiasDisponiblesReales <= 0; // CAMBIO: Solo permite reservar si no hay copias reales disponibles
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarDetallesLibro();
+        await CargarEstadoUsuario();
+    }
+
+    private async Task CargarDetallesLibro()
+    {
+        try
+        {
+            libro = await LibroService.GetLibroByIdAsync(Id);
+            if (libro != null)
+            {
+                numeroReservas = await ReservaService.GetNumeroReservasParaLibroAsync(Id);
+            }
+        }
+        catch (Exception ex)
+        {
+            mensajeError = $"Error al cargar detalles del libro: {ex.Message}";
+            Console.WriteLine(mensajeError);
+        }
+    }
+
+    private async Task CargarEstadoUsuario()
+    {
+        var authState = await authenticationState;
+        var user = authState.User;
+
+        // Resetear estados relacionados con el usuario para evitar mostrar información incorrecta
+        currentUserId = null;
+        usuarioEsAdmin = false;
+        usuarioEsBibliotecario = false;
+        usuarioTieneReservaActiva = false;
+        prestamoActivoUsuario = null;
+        reservaActivaUsuarioParaEsteLibro = null;
+
+
+        if (user.Identity.IsAuthenticated)
+        {
+            currentUserId = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            usuarioEsAdmin = user.IsInRole("Admin");
+            usuarioEsBibliotecario = user.IsInRole("Bibliotecario");
+
+            if (!string.IsNullOrEmpty(currentUserId))
+            {
+                using (var scope = ScopeFactory.CreateScope())
+                {
+                    var reservaService = scope.ServiceProvider.GetRequiredService<IReservaService>();
+                    var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
+
+                    usuarioTieneReservaActiva = await reservaService.UsuarioYaTieneReservaActiva(Id, currentUserId);
+
+                    // Buscar si el usuario tiene un préstamo activo para este libro
+                    var prestamosDelUsuario = await prestamoService.ObtenerPrestamosDeUsuarioAsync(currentUserId);
+                    prestamoActivoUsuario = prestamosDelUsuario?.FirstOrDefault(p =>
+                        p.LibroId == Id && p.Estado == EstadoPrestamo.Activo);
+
+                    // Buscar si el usuario tiene una reserva activa para este libro que esté lista para ser reclamada.
+                    reservaActivaUsuarioParaEsteLibro = await reservaService.GetReservaActivaParaLibroYUsuarioAsync(Id, currentUserId);
+                }
+            }
+        }
+    }
+
+    private void VolverAlCatalogo()
+    {
+        Navigation.NavigateTo("/catalogo");
+    }
+
+    private async Task RealizarPrestamo()
+    {
+        if (libro == null || currentUserId == null)
+        {
+            mensajeError = "No se puede realizar el préstamo: información incompleta.";
+            return;
+        }
+
+        mensajeError = string.Empty;
+        mensajeExito = string.Empty;
+
+        try
+        {
+            var nuevoPrestamo = new Prestamo
+            {
+                LibroId = libro.id,
+                UsuarioId = currentUserId,
+                FechaVencimiento = DateTime.UtcNow.AddDays(14),
+                FechaPrestamo = DateTime.UtcNow,
+                Estado = EstadoPrestamo.Activo
+            };
+
+            var prestamoCreado = await PrestamoService.RealizarPrestamoAsync(nuevoPrestamo);
+            
+            if (prestamoCreado != null)
+            {
+                mensajeExito = $"Préstamo del libro '{libro.Titulo}' realizado exitosamente.";
+                await CargarDetallesLibro(); 
+                await CargarEstadoUsuario(); 
+                StateHasChanged(); 
+            }
+            else
+            {
+                mensajeError = "Error desconocido al realizar el préstamo.";
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            mensajeError = $"Error al pedir préstamo: {ex.Message}";
+        }
+        catch (Exception ex)
+        {
+            mensajeError = $"Ocurrió un error inesperado al realizar el préstamo: {ex.Message}";
+        }
+    }
+
+    private async Task RealizarReserva()
+    {
+        if (libro == null || currentUserId == null)
+        {
+            mensajeError = "No se puede realizar la reserva: información incompleta.";
+            return;
+        }
+
+        mensajeError = string.Empty;
+        mensajeExito = string.Empty;
+
+        try
+        {
+            var reserva = await ReservaService.CrearReservaAsync(libro.id, currentUserId); 
+            if (reserva != null)
+            {
+                mensajeExito = $"Reserva del libro '{libro.Titulo}' creada exitosamente.";
+                await CargarDetallesLibro(); 
+                await CargarEstadoUsuario(); 
+                StateHasChanged();
+            }
+            else
+            {
+                mensajeError = "Error desconocido al realizar la reserva.";
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            mensajeError = $"Error al reservar: {ex.Message}";
+        }
+        catch (Exception ex)
+        {
+            mensajeError = $"Ocurrió un error inesperado al reservar: {ex.Message}";
+        }
+    }
+
+    private async Task ProcesarDevolucion()
+    {
+        if (prestamoActivoUsuario == null)
+        {
+            mensajeError = "No se encontró un préstamo activo para devolver.";
+            return;
+        }
+
+        mensajeError = string.Empty;
+        mensajeExito = string.Empty;
+
+        try
+        {
+            var prestamoDevuelto = await PrestamoService.ProcesarDevolucionAsync(prestamoActivoUsuario.Id);
+
+            if (prestamoDevuelto != null)
+            {
+                mensajeExito = $"Libro '{libro.Titulo}' devuelto exitosamente.";
+                await CargarDetallesLibro();
+                await CargarEstadoUsuario();
+                StateHasChanged(); 
+            }
+            else
+            {
+                mensajeError = "Error desconocido al procesar la devolución.";
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            mensajeError = $"Error al devolver libro: {ex.Message}";
+        }
+        catch (Exception ex)
+        {
+            mensajeError = $"Ocurrió un error inesperado al devolver el libro: {ex.Message}";
+        }
+    }
+
+    private async Task ReclamarReserva()
+    {
+        if (reservaActivaUsuarioParaEsteLibro == null || currentUserId == null || libro == null)
+        {
+            mensajeError = "No se puede reclamar la reserva: información incompleta.";
+            return;
+        }
+
+        mensajeError = string.Empty;
+        mensajeExito = string.Empty;
+
+        try
+        {
+            var prestamoDeReserva = await ReservaService.ReclamarReservaAsync(reservaActivaUsuarioParaEsteLibro.Id);
+
+            if (prestamoDeReserva != null)
+            {
+                mensajeExito = $"Reserva del libro '{libro.Titulo}' reclamada y préstamo realizado exitosamente.";
+                await CargarDetallesLibro(); 
+                await CargarEstadoUsuario(); 
+                StateHasChanged();
+            }
+            else
+            {
+                mensajeError = "Error desconocido al reclamar la reserva.";
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            mensajeError = $"Error al reclamar reserva: {ex.Message}";
+        }
+        catch (Exception ex)
+        {
+            mensajeError = $"Ocurrió un error inesperado al reclamar la reserva: {ex.Message}";
+        }
+    }
+}

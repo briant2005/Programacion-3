@@ -5,65 +5,122 @@
     box-sizing: border-box;
 }
 
+/* === DEFINICIÓN DE VARIABLES DE COLOR === */
+:root {
+    --verde-botella: #2e8b57; /* Verde oscuro para fondos de navegación */
+    --gris-blanco: #f4f4f4; /* Gris muy claro, ideal para texto sobre fondos oscuros */
+    --gris-medio: #666; /* Gris medio, para texto secundario o pie de página */
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #fff;
     color: #333;
+    overflow-x: hidden; /* Evita scroll horizontal */
 }
 
-/* ====== NAV ====== */
-nav {
+/* ====== NAV - BARRA DE NAVEGACIÓN SUPERIOR - CONTENEDOR PRINCIPAL DEL NAV ====== */
+/* Usamos .nav-container para apuntar a la etiqueta <nav> en MainLayout.razor */
+.nav-container {
     width: 100%;
-    background-color: var(--verde-botella);
+    background-color: var(--verde-botella); /* Color de fondo deseado */
     padding: 0.5rem 1rem;
-    display: flex;
+    display: flex; /* CRÍTICO: Para alinear logo y menú de escritorio/botón móvil */
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; /* Para separar el logo de los enlaces/botón */
+    position: sticky; /* Mantiene la barra de navegación en la parte superior */
+    top: 0;
+    z-index: 1000; /* Asegura que esté por encima de otros contenidos */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra suave */
 }
 
-    nav ul {
-        display: flex;
+    /* Estilos para las listas UL dentro de nav (menu-desktop, mobile-menu) */
+    .nav-container ul {
         list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex; /* Los elementos LI se alinearán horizontalmente */
+        align-items: center;
     }
 
-        nav ul li {
-            margin-left: 1rem;
+        /* Estilos para los elementos LI dentro de las UL de nav */
+        /* Asegura que los li sean visibles y tengan margen */
+        .nav-container ul li {
+            margin-left: 1rem; /* Margen entre elementos del menú principal */
+            display: flex; /* Asegura que cada item de lista sea un flex container */
+            align-items: center; /* Alinea verticalmente el contenido dentro del LI */
         }
 
-            nav ul li.logo-pequeno img,
-            nav ul li.logo-movil img {
+            /* Estilos para las imágenes de logo en los LI */
+            .nav-container ul li.logo-pequeno img,
+            .nav-container ul li.logo-movil img {
                 width: 120px;
+                height: auto; /* Para mantener la proporción */
             }
 
+/* ENLACES DE NAVEGACIÓN */
 .nav-link {
-    color: #f4f4f4;
+    color: var(--gris-blanco); /* Color de texto deseado para los enlaces de navegación */
     font-size: 1rem;
+    text-decoration: none; /* Elimina el subrayado por defecto */
+    padding: 0.5rem 1rem;
+    display: block; /* Hace que el área de clic sea más grande dentro del li */
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+    transition: color 0.3s ease; /* Transición suave para hover */
 }
 
-.mobile-menu {
-    display: none;
+    .nav-link:hover {
+        color: #a0a0a0; /* Color al pasar el ratón */
+    }
+
+/* === MENÚS ESCRITORIO Y MÓVIL (CONTROLADOS POR MEDIA QUERIES) === */
+.nav-container ul.menu-desktop {
+    display: flex; /* Visible por defecto en escritorio */
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.nav-container ul.mobile-menu {
+    display: none; /* Oculto por defecto en escritorio */
 }
 
 .menu-button {
     cursor: pointer;
 }
 
+/* === SIDEBAR DESPLEGABLE (CONTROLADO POR JAVASCRIPT) === */
 .sidebar {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: var(--verde-botella);
-    width: 70%;
+    background-color: var(--verde-botella); /* Color de fondo deseado */
+    width: 70%; /* Ancho de la barra lateral móvil */
     height: 100%;
-    flex-direction: column;
+    z-index: 1001; /* Asegura que esté por encima de todo */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5); /* Sombra para efecto de superposición */
+    /* CRÍTICO: Oculto por defecto. Tus funciones JS ShowSidebar/HideSidebar deben cambiar esto */
+    display: none; /* NO CAMBIAR ESTO, ES PARA EL COMPORTAMIENTO JS */
+    flex-direction: column; /* Apila los elementos verticalmente */
     padding: 2rem;
     gap: 1rem;
-    display: none;
+    overflow-y: auto;
 }
 
+    /* Estilos para elementos LI dentro del sidebar */
     .sidebar li {
-        margin: 1rem 0;
+        margin: 1rem 0; /* Margen vertical para elementos del sidebar */
+        width: 100%;
+        display: flex; /* Asegura que cada item de lista sea un flex container */
+        align-items: center; /* Alinea verticalmente el contenido dentro del LI */
     }
+
+/* Botón de cerrar en la barra lateral */
+.close-button {
+    cursor: pointer;
+    align-self: flex-end; /* Alinea el botón de cerrar a la derecha */
+    color: var(--gris-blanco); /* Color para el icono de cerrar */
+}
+
 
 /* ====== HEADER BIENVENIDA ====== */
 .bienvenida {
@@ -71,6 +128,8 @@ nav {
     width: 100%;
     height: 60vh;
     background: url('/img/fondo-biblioteca.jpg') center/cover no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
     .bienvenida .overlay {
@@ -89,6 +148,7 @@ nav {
         justify-content: center;
         color: #fff;
         text-align: center;
+        padding: 1rem;
     }
 
     .bienvenida h1 {
@@ -107,19 +167,31 @@ nav {
     padding: 1rem 0;
     font-size: 0.9rem;
     color: var(--gris-medio);
+    width: 100%;
+    margin-top: auto; /* Para empujar el footer al final */
 }
 
-/* MEDIA QUERIES */
+
+/* ====== MEDIA QUERIES ====== */
 @media (max-width: 768px) {
-    nav ul.menu-desktop {
+    /* En móvil, oculta el menú de escritorio */
+    .nav-container ul.menu-desktop {
         display: none;
     }
 
-    nav ul.mobile-menu {
+    /* En móvil, muestra el menú móvil (que contiene el botón de hamburguesa) */
+    .nav-container ul.mobile-menu {
         display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
     }
 
     .bienvenida {
         height: 40vh;
     }
+
+        .bienvenida h1 {
+            font-size: 2rem;
+        }
 }

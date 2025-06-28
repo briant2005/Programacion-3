@@ -1,4 +1,6 @@
 ﻿@page "/"
+@attribute [Authorize] // Solo usuarios autenticados pueden ver la lista de libros
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Web
 @namespace BBAPP.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

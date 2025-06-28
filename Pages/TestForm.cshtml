@@ -1,0 +1,8 @@
+﻿@page
+@using BBAPP.Pages
+@model TestFormModel
+<form method="post" action="/Identity/Account/Register">
+    @Html.AntiForgeryToken()
+    <input asp-for="Input.TestValue" />
+    <button type="submit">Submit</button>
+</form>

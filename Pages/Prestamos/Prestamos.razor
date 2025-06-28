@@ -1,0 +1,166 @@
+﻿@page "/prestamos"
+@* ESTA ES LA DIRECTIVA DE RUTA PARA ESTA PÁGINA *@
+@attribute [Authorize(Roles = "Admin, Bibliotecario, Usuario")]
+@using BBAPP.Data.Models
+@using BBAPP.Services
+@using BBAPP.DTOs
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity @* <-- ¡AÑADIDA ESTA DIRECTIVA! *@
+@inject IPrestamoService PrestamoService
+@inject NavigationManager NavigationManager
+@inject UserManager<UsuarioAplicacion> UserManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime JSRuntime
+@inject IServiceScopeFactory ScopeFactory
+@* Inyectar para usar UserManager/SignInManager en un ámbito seguro *@
+
+<h3>Gestión de Préstamos</h3>
+
+<p>
+    <a href="/prestamos/realizar" class="btn btn-primary">Realizar Nuevo Préstamo</a>
+</p>
+
+@if (prestamos == null)
+{
+    <p><em>Cargando préstamos...</em></p>
+}
+else if (!prestamos.Any())
+{
+    <p>No hay préstamos registrados.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Libro</th>
+                <th>Usuario</th>
+                <th>Fecha Préstamo</th>
+                <th>Fecha Vencimiento</th>
+                <th>Fecha Devolución Real</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prestamo in prestamos)
+            {
+                <tr>
+                    <td>@prestamo.TituloLibro</td>
+                    <td>@prestamo.UsuarioNombreCompleto</td>
+                    <td>@prestamo.FechaPrestamo.ToShortDateString()</td>
+                    <td>@prestamo.FechaVencimiento.ToShortDateString()</td>
+                    <td>@(prestamo.FechaDevolucion?.ToShortDateString() ?? "Pendiente")</td>
+                    <td>@prestamo.Estado.ToString()</td>
+                    <td>
+                        @if (prestamo.Estado == EstadoPrestamo.Activo && (IsAdminOrBibliotecario || CurrentUserId == prestamo.UsuarioId))
+                        {
+                            <button class="btn btn-success btn-sm" @onclick="() => ProcesarDevolucion(prestamo.Id)">Devolver</button>
+                        }
+                        @if (IsAdminOrBibliotecario)
+                        {
+                            <button class="btn btn-danger btn-sm" @onclick="() => EliminarPrestamo(prestamo.Id)">Eliminar</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<PrestamoDto> prestamos;
+    private string CurrentUserId;
+    private bool IsAdminOrBibliotecario = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            using (var scope = ScopeFactory.CreateScope())
+            {
+                var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<UsuarioAplicacion>>();
+
+                var usuarioActual = await userManager.GetUserAsync(user);
+                if (usuarioActual != null)
+                {
+                    if (user.IsInRole("Admin") || user.IsInRole("Bibliotecario"))
+                    {
+                        prestamos = await prestamoService.GetTodosPrestamosAsync();
+                    }
+                    else
+                    {
+                        prestamos = await prestamoService.ObtenerPrestamosDeUsuarioAsync(CurrentUserId);
+                    }
+                }
+                else
+                {
+                    prestamos = new List<PrestamoDto>();
+                }
+            }
+        }
+        else
+        {
+            prestamos = new List<PrestamoDto>();
+        }
+    }
+
+    private async Task ProcesarDevolucion(int prestamoId)
+    {
+        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", "¿Está seguro de que desea procesar esta devolución?");
+        if (confirm)
+        {
+            try
+            {
+                using (var scope = ScopeFactory.CreateScope())
+                {
+                    var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
+                    // CORREGIDO: Llamada al método ProcesarDevolucionAsync sin DevolucionDto y sin deconstrucción de tupla
+                    var prestamoActualizado = await prestamoService.ProcesarDevolucionAsync(prestamoId);
+
+                    if (prestamoActualizado != null)
+                    {
+                        await JSRuntime.InvokeVoidAsync("alert", $"Libro '{prestamoActualizado.Libro?.Titulo}' devuelto exitosamente.");
+                        await OnInitializedAsync();
+                    }
+                    else
+                    {
+                        await JSRuntime.InvokeVoidAsync("alert", "Error al procesar la devolución.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ocurrió un error inesperado al procesar devolución: {ex.Message}");
+                await JSRuntime.InvokeVoidAsync("alert", $"Ocurrió un error inesperado: {ex.Message}");
+            }
+        }
+    }
+
+    private async Task EliminarPrestamo(int prestamoId)
+    {
+        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", "¿Está seguro de que desea eliminar este préstamo? Esta acción es irreversible.");
+        if (confirm)
+        {
+            try
+            {
+                using (var scope = ScopeFactory.CreateScope())
+                {
+                    var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
+                    await prestamoService.EliminarPrestamoAsync(prestamoId);
+                    await JSRuntime.InvokeVoidAsync("alert", "Préstamo eliminado exitosamente.");
+                    await OnInitializedAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al eliminar préstamo: {ex.Message}");
+                await JSRuntime.InvokeVoidAsync("alert", $"Error: {ex.Message}");
+            }
+        }
+    }
+}

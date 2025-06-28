@@ -1,0 +1,232 @@
+﻿@page "/reservas"
+@attribute [Authorize(Roles = "Usuario, Admin, Bibliotecario")]
+
+@using BBAPP.Data.Models
+@using BBAPP.Services
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.Extensions.DependencyInjection
+@using System.Security.Claims // Necesario para ClaimTypes
+
+@inject IReservaService ReservaService
+@inject IServiceScopeFactory ScopeFactory
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@inject UserManager<UsuarioAplicacion> UserManager // Inyectar UserManager
+
+<h3>Gestión de Reservas</h3>
+
+@if (cargando)
+{
+    <p><em>Cargando reservas...</em></p>
+}
+else if (reservas == null || !reservas.Any()) // Manejar el caso donde reservas es null
+{
+    <p>No tienes reservas registradas.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Libro</th>
+                <th>Fecha de Reserva</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reserva in reservas)
+            {
+                <tr>
+                    <td>@reserva.Libro?.Titulo</td>
+                    <td>@reserva.FechaReserva.ToShortDateString()</td>
+                    <td>@reserva.Estado.ToString()</td>
+                    <td>
+                        @* Botón para que el usuario cancele su propia reserva pendiente *@
+                        @if (reserva.Estado == EstadoReserva.Pendiente && !usuarioEsAdmin && !usuarioEsBibliotecario)
+                        {
+                            <button class="btn btn-warning btn-sm" @onclick="() => CancelarReserva(reserva.Id)">Cancelar Reserva</button>
+                        }
+
+                        @* Acciones para Admin/Bibliotecario para gestionar reservas "ListaParaRecoger" *@
+                        <AuthorizeView Roles="Admin, Bibliotecario">
+                            <Authorized>
+                                @if (reserva.Estado == EstadoReserva.ListaParaRecoger)
+                                {
+                                    <button class="btn btn-success btn-sm me-2" @onclick="() => MarcarComoReclamada(reserva.Id)">Marcar como Reclamada</button>
+                                    <button class="btn btn-danger btn-sm" @onclick="() => MarcarComoNoReclamada(reserva.Id)">Marcar como No Reclamada</button>
+                                }
+                                else if (reserva.Estado == EstadoReserva.Pendiente)
+                                {
+                                    <button class="btn btn-warning btn-sm" @onclick="() => CancelarReserva(reserva.Id)">Cancelar Reserva (Admin)</button>
+                                }
+                            </Authorized>
+                        </AuthorizeView>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Reserva> reservas;
+    private bool cargando = true;
+    private string currentUserId;
+    private bool usuarioEsAdmin;
+    private bool usuarioEsBibliotecario;
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarEstadoUsuario(); // Cargar roles y ID del usuario primero
+        await CargarReservas();
+    }
+
+    private async Task CargarEstadoUsuario()
+    {
+        var authState = await authenticationState;
+        var user = authState.User;
+
+        currentUserId = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        usuarioEsAdmin = user.IsInRole("Admin");
+        usuarioEsBibliotecario = user.IsInRole("Bibliotecario");
+    }
+
+    private async Task CargarReservas()
+    {
+        cargando = true;
+        // Se asume que CargarEstadoUsuario ya ha sido llamado en OnInitializedAsync
+        if (!string.IsNullOrEmpty(currentUserId))
+        {
+            using (var scope = ScopeFactory.CreateScope())
+            {
+                var reservaService = scope.ServiceProvider.GetRequiredService<IReservaService>();
+
+                // Si es Admin o Bibliotecario, puede ver todas las reservas
+                if (usuarioEsAdmin || usuarioEsBibliotecario)
+                {
+                    reservas = await reservaService.GetTodasReservasAsync();
+                }
+                else // Si es un usuario normal, solo ve sus reservas
+                {
+                    reservas = await reservaService.GetReservasPorUsuarioAsync(currentUserId);
+                }
+            }
+        }
+        else
+        {
+            reservas = new List<Reserva>(); // No autenticado o sin ID de usuario, no hay reservas
+            NavigationManager.NavigateTo("/Identity/Account/Login"); // Redirigir si no está autenticado
+        }
+        cargando = false;
+        StateHasChanged(); // Forzar la actualización de la UI
+    }
+
+    private async Task CancelarReserva(int reservaId)
+    {
+        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", "¿Está seguro de que desea cancelar esta reserva?");
+        if (confirm)
+        {
+            try
+            {
+                using (var scope = ScopeFactory.CreateScope())
+                {
+                    var reservaService = scope.ServiceProvider.GetRequiredService<IReservaService>();
+                    var exito = await reservaService.CancelarReservaAsync(reservaId);
+                    if (exito)
+                    {
+                        await JSRuntime.InvokeVoidAsync("alert", "Reserva cancelada exitosamente.");
+                        await CargarReservas(); // Recargar la lista
+                    }
+                    else
+                    {
+                        await JSRuntime.InvokeVoidAsync("alert", "No se pudo cancelar la reserva. Es posible que ya no esté pendiente o lista para recoger.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al cancelar reserva: {ex.Message}");
+                await JSRuntime.InvokeVoidAsync("alert", $"Error: {ex.Message}");
+            }
+        }
+    }
+
+    // Método para que Admin/Bibliotecario marque una reserva como "Reclamada"
+    private async Task MarcarComoReclamada(int reservaId)
+    {
+        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", "¿Está seguro de que desea marcar esta reserva como reclamada y convertirla en préstamo?");
+        if (confirm)
+        {
+            try
+            {
+                using (var scope = ScopeFactory.CreateScope())
+                {
+                    var reservaService = scope.ServiceProvider.GetRequiredService<IReservaService>();
+                    // ReclamarReservaAsync también crea el préstamo y actualiza el libro
+                    var prestamoCreado = await reservaService.ReclamarReservaAsync(reservaId);
+                    if (prestamoCreado != null)
+                    {
+                        await JSRuntime.InvokeVoidAsync("alert", "Reserva marcada como reclamada y préstamo creado exitosamente.");
+                        await CargarReservas(); // Recargar la lista
+                    }
+                    else
+                    {
+                        await JSRuntime.InvokeVoidAsync("alert", "No se pudo marcar la reserva como reclamada. Verifique las copias disponibles o el estado de la reserva.");
+                    }
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                await JSRuntime.InvokeVoidAsync("alert", $"Error: {ex.Message}");
+                Console.WriteLine($"Error al marcar reserva como reclamada: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error inesperado al marcar reserva como reclamada: {ex.Message}");
+                await JSRuntime.InvokeVoidAsync("alert", $"Error inesperado: {ex.Message}");
+            }
+        }
+    }
+
+    // Método para que Admin/Bibliotecario marque una reserva como "No Reclamada" (cancelada administrativamente)
+    private async Task MarcarComoNoReclamada(int reservaId)
+    {
+        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", "¿Está seguro de que desea marcar esta reserva como no reclamada (cancelada)?");
+        if (confirm)
+        {
+            try
+            {
+                using (var scope = ScopeFactory.CreateScope())
+                {
+                    var reservaService = scope.ServiceProvider.GetRequiredService<IReservaService>();
+                    // Reutilizamos CancelarReservaAsync ya que puede manejar el estado 'ListaParaRecoger'
+                    var exito = await reservaService.CancelarReservaAsync(reservaId);
+                    if (exito)
+                    {
+                        await JSRuntime.InvokeVoidAsync("alert", "Reserva marcada como no reclamada (cancelada) exitosamente.");
+                        await CargarReservas(); // Recargar la lista
+                    }
+                    else
+                    {
+                        await JSRuntime.InvokeVoidAsync("alert", "No se pudo marcar la reserva como no reclamada. Verifique el estado de la reserva.");
+                    }
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                await JSRuntime.InvokeVoidAsync("alert", $"Error: {ex.Message}");
+                Console.WriteLine($"Error al marcar reserva como no reclamada: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error inesperado al marcar reserva como no reclamada: {ex.Message}");
+                await JSRuntime.InvokeVoidAsync("alert", $"Error inesperado: {ex.Message}");
+            }
+        }
+    }
+}

@@ -9,61 +9,115 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BBAPP
 build_property.RootNamespace = BBAPP
-build_property.ProjectDir = C:\Users\duver\Desktop\pbbb\BBAPP\
+build_property.ProjectDir = C:\Users\Kevin\source\repos\Programacion-3\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\duver\Desktop\pbbb\BBAPP
+build_property.MSBuildProjectDirectory = C:\Users\Kevin\source\repos\Programacion-3
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/duver/Desktop/pbbb/BBAPP/App.razor]
+[C:/Users/Kevin/source/repos/Programacion-3/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/duver/Desktop/pbbb/BBAPP/Pages/Catalogo.razor]
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/Admin/GestionRoles.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cR2VzdGlvblJvbGVzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/Catalogo.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2F0YWxvZ28ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/duver/Desktop/pbbb/BBAPP/Pages/Counter.razor]
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/duver/Desktop/pbbb/BBAPP/Pages/FetchData.razor]
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/duver/Desktop/pbbb/BBAPP/Pages/Index.razor]
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/duver/Desktop/pbbb/BBAPP/Pages/Login.razor]
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/Libros/AnadirEditarLibro.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGlicm9zXEFuYWRpckVkaXRhckxpYnJvLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/Libros/DetalleLibro.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGlicm9zXERldGFsbGVMaWJyby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/Login.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/duver/Desktop/pbbb/BBAPP/Pages/Registro.razor]
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/Logout.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/Perfil.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGVyZmlsLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/Prestamos/Prestamos.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJlc3RhbW9zXFByZXN0YW1vcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/Prestamos/RealizarPrestamo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJlc3RhbW9zXFJlYWxpemFyUHJlc3RhbW8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/Registro.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0cm8ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/duver/Desktop/pbbb/BBAPP/Shared/SurveyPrompt.razor]
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/Reservas.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzZXJ2YXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kevin/source/repos/Programacion-3/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/duver/Desktop/pbbb/BBAPP/_Imports.razor]
+[C:/Users/Kevin/source/repos/Programacion-3/Shared/_LoginPartial.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXF9Mb2dpblBhcnRpYWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kevin/source/repos/Programacion-3/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/duver/Desktop/pbbb/BBAPP/Shared/MainLayout.razor]
+[C:/Users/Kevin/source/repos/Programacion-3/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-gr9rc9u14v
 
-[C:/Users/duver/Desktop/pbbb/BBAPP/Shared/NavMenu.razor]
+[C:/Users/Kevin/source/repos/Programacion-3/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-mormvkfrys
 
-[C:/Users/duver/Desktop/pbbb/BBAPP/Pages/Error.cshtml]
+[C:/Users/Kevin/source/repos/Programacion-3/Areas/Identity/Pages/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kevin/source/repos/Programacion-3/Areas/Identity/Pages/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kevin/source/repos/Programacion-3/Areas/Identity/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/duver/Desktop/pbbb/BBAPP/Pages/_Host.cshtml]
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/TestForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGVzdEZvcm0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

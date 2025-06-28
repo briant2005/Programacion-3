@@ -1,12 +1,42 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
-    <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+﻿<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(Program).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    @if (!context.User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <RedirectToLogin />
+                    }
+                    else
+                    {
+                        <p role="alert">No tienes autorización para acceder a este recurso.</p>
+                    }
+                </NotAuthorized>
+                <Authorizing>
+                    <p>Cargando autorización...</p>
+                </Authorizing>
+            </AuthorizeRouteView>
+        </Found>
+        <NotFound>
+            <PageTitle>No encontrado</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Lo sentimos, no hay nada en esta dirección.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
+
+@code {
+    // Un componente simple para redirigir al login si no está autenticado
+    private class RedirectToLogin : ComponentBase
+    {
+        [Inject]
+        public NavigationManager Navigation { get; set; }
+
+        protected override void OnInitialized()
+        {
+            // Redirige a la página de login de Identity UI, pasando la URL actual como returnUrl
+            Navigation.NavigateTo($"Identity/Account/Login?returnUrl={Uri.EscapeDataString(Navigation.Uri)}");
+        }
+    }
+}

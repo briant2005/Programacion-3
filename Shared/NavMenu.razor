@@ -1,7 +1,14 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity
+@using BBAPP.Data.Models
+
+@inject UserManager<UsuarioAplicacion> UserManager
+@* Mover la inyección de NavigationManager al bloque @code *@
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">BBAPP</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+        <button title="Navigation menu" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
@@ -11,10 +18,65 @@
     <nav class="flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+                <span class="oi oi-home" aria-hidden="true"></span> Inicio
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+
+        @* Enlaces del módulo de biblioteca - Ahora dinámicos *@
+        @foreach (var item in NavItems)
+        {
+            if (!string.IsNullOrEmpty(item.RequiredRoles))
+            {
+                <AuthorizeView Roles="@item.RequiredRoles">
+                    <Authorized>
+                        @NavLinkItem(item)
+                    </Authorized>
+                </AuthorizeView>
+            }
+            else if (item.RequiresAuth)
+            {
+                <AuthorizeView>
+                    <Authorized>
+                        @NavLinkItem(item)
+                    </Authorized>
+                </AuthorizeView>
+            }
+            else
+            {
+                @NavLinkItem(item)
+            }
+        }
+
+        
+        @* Información del usuario autenticado o mensaje de bienvenida general *@
+        <AuthorizeView>
+            <Authorized>
+                <div class="nav-item px-3 mt-3"> @* Margen superior para separarlo de los otros enlaces *@
+                    <span class="nav-link text-info">
+                        ¡Hola, @displayName! @* Se muestra la propiedad 'displayName' aquí *@
+                    </span>
+                </div>
+                <div class="nav-item px-3">
+                    <button class="nav-link btn btn-link text-info" @onclick="Logout">Cerrar sesión</button>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="nav-item px-3 mt-3">
+                    <span class="nav-link text-info">
+                        ¡Hola, Invitado! @* Para usuarios no autenticados *@
+                    </span>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+
+        @* _LoginPartial.razor todavía está aquí y proporciona enlaces de Login/Register/Logout.
+           Puedes decidir si deseas mantenerlo o si la sección AuthorizeView anterior cubre todo. *@
+        <div class="nav-item px-3 mt-auto">
+            <Shared._LoginPartial />
+        </div>
+
+        @* Ejemplos de enlaces de la plantilla por defecto, puedes eliminarlos si no los necesitas *@
+        @* <div class="nav-item px-3">
             <NavLink class="nav-link" href="counter">
                 <span class="oi oi-plus" aria-hidden="true"></span> Counter
             </NavLink>
@@ -23,17 +85,104 @@
             <NavLink class="nav-link" href="fetchdata">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
             </NavLink>
-        </div>
+        </div> *@
     </nav>
 </div>
 
 @code {
     private bool collapseNavMenu = true;
-
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string? displayName; // Se mantiene como propiedad del componente.
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; } // Se necesita para obtener el AuthenticationState
+
+    // Inyectar NavigationManager aquí
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+    @code {
+        RenderFragment NavLinkItem(NavItem item) => builder =>
+        {
+            builder.OpenElement(0, "div");
+            builder.AddAttribute(1, "class", "nav-item px-3");
+            builder.OpenComponent<NavLink>(2);
+            builder.AddAttribute(3, "class", "nav-link");
+            builder.AddAttribute(4, "href", item.Href);
+            builder.AddAttribute(5, "ChildContent", (RenderFragment)(childBuilder =>
+            {
+                if (!string.IsNullOrEmpty(item.IconCssClass))
+                {
+                    childBuilder.OpenElement(6, "span");
+                    childBuilder.AddAttribute(7, "class", item.IconCssClass);
+                    childBuilder.AddAttribute(8, "aria-hidden", "true");
+                    childBuilder.CloseElement();
+                    childBuilder.AddContent(9, " ");
+                }
+                childBuilder.AddContent(10, item.Text);
+            }));
+            builder.CloseComponent();
+            builder.CloseElement();
+        };
+    }
+
+    protected override async Task OnParametersSetAsync() // Usamos OnParametersSetAsync para reaccionar a cambios en authState
+    {
+        var authState = await authenticationState;
+        var user = authState.User;
+
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            var appUser = await UserManager.GetUserAsync(user);
+            if (appUser != null)
+            {
+                displayName = appUser.Nombre + " " + appUser.Apellido;
+                if (string.IsNullOrEmpty(displayName.Trim()))
+                {
+                    displayName = appUser.UserName; // Fallback al UserName
+                }
+            }
+            else
+            {
+                displayName = user.Identity.Name; // Fallback al nombre de Identity
+            }
+        }
+        else
+        {
+            displayName = "Invitado"; // Para usuarios no autenticados
+        }
+        // No se necesita StateHasChanged() explícito aquí porque OnParametersSetAsync ya es parte del ciclo de renderizado.
+    }
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
+
+    // Método para manejar el cierre de sesión
+    private void Logout()
+    {
+        // La NavigationManager ahora está inyectada en el bloque @code
+        NavigationManager.NavigateTo("Identity/Account/Logout", forceLoad: true);
+    }
+
+        public class NavItem
+        {
+    public string Text { get; set; }
+    public string Href { get; set; }
+    public string RequiredRoles { get; set; } = string.Empty;
+    public bool RequiresAuth { get; set; } = false;
+    public string IconCssClass { get; set; } = string.Empty;
+        }
+
+
+
+    private List<NavItem> NavItems = new List<NavItem>
+{
+    new NavItem { Text = "Catálogo de Libros", Href = "catalogo", IconCssClass = "oi oi-book" },
+    new NavItem { Text = "Añadir Libro", Href = "libros/anadir", RequiredRoles = "Admin,Bibliotecario", IconCssClass = "oi oi-plus" },
+    new NavItem { Text = "Gestionar Roles", Href = "admin/roles", RequiredRoles = "Admin", IconCssClass = "oi oi-lock-locked" },    new NavItem { Text = "Préstamos", Href = "prestamos", RequiresAuth = true, IconCssClass = "oi oi-loop-circular" },
+    new NavItem { Text = "Perfil", Href = "perfil", RequiresAuth = true, IconCssClass = "oi oi-person" },
+    new NavItem { Text = "Reservas", Href = "reservas", RequiresAuth = true, IconCssClass = "oi oi-calendar" }
+
+};
 }

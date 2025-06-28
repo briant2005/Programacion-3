@@ -1,0 +1,147 @@
+﻿@page "/libros/anadir"
+@page "/libros/editar/{Id:int}" // Ruta para edición, Id es opcional al inicio pero requerido para editar
+@attribute [Authorize(Roles = "Admin, Bibliotecario")] // Solo administradores y bibliotecarios pueden añadir/editar libros
+@inject ILibroService LibroService
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+@using BBAPP.Data.Models // Agrega el using para el modelo Libro
+@using BBAPP.DTOs // Asegúrate de que el namespace de tus DTOs sea correcto
+
+<h3>@(EsEditando ? "Editar Libro" : "Añadir Nuevo Libro")</h3>
+
+<EditForm Model="@libroDto" OnValidSubmit="GuardarLibro" FormName="LibroForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group mb-3">
+        <label for="titulo">Título:</label>
+        <InputText id="titulo" class="form-control" @bind-Value="libroDto.Titulo" />
+        <ValidationMessage For="@(() => libroDto.Titulo)" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="autor">Autor:</label>
+        <InputText id="autor" class="form-control" @bind-Value="libroDto.Autor" />
+        <ValidationMessage For="@(() => libroDto.Autor)" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="totalCopias">Total de Copias:</label>
+        <InputNumber id="totalCopias" class="form-control" @bind-Value="libroDto.TotalCopias" />
+        <ValidationMessage For="@(() => libroDto.TotalCopias)" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="genero">Género:</label>
+        <InputText id="genero" class="form-control" @bind-Value="libroDto.Genero" />
+        <ValidationMessage For="@(() => libroDto.Genero)" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="anioPublicacion">Año de Publicación:</label>
+        <InputNumber id="anioPublicacion" class="form-control" @bind-Value="libroDto.AnioPublicacion" />
+        <ValidationMessage For="@(() => libroDto.AnioPublicacion)" />
+    </div>
+
+    <button type="submit" class="btn btn-success">@(EsEditando ? "Actualizar Libro" : "Añadir Libro")</button>
+    <button type="button" class="btn btn-secondary" @onclick="VolverAlCatalogo">Cancelar</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; } // Puede ser nulo si es una operación de añadir
+
+    private LibroDto libroDto = new LibroDto(); // Instancia del DTO que se usará para el formulario
+    private bool EsEditando => Id.HasValue;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (EsEditando)
+        {
+            try
+            {
+                // Obtener el libro existente desde el servicio.
+                // Asumimos que GetLibroByIdAsync devuelve BBAPP.Data.Models.Libro.
+                var libroExistente = await LibroService.GetLibroByIdAsync(Id.Value);
+                if (libroExistente != null)
+                {
+                    // Mapear manualmente las propiedades del modelo a las del DTO.
+                    // Esto es necesario para que el formulario trabaje con el DTO.
+                    // Se asume que 'Id' existe en BBAPP.Data.Models.Libro.
+                    libroDto = new LibroDto
+                        {
+                            Id = libroExistente.id,
+                            Titulo = libroExistente.Titulo,
+                            Autor = libroExistente.Autor,
+                            TotalCopias = libroExistente.TotalCopias,
+                            CopiasDisponibles = libroExistente.CopiasDisponibles,
+                            Genero = libroExistente.Genero,
+                            AnioPublicacion = libroExistente.AnioPublicacion
+                        };
+                }
+                else
+                {
+                    // Libro no encontrado para edición, redirigir o mostrar error
+                    await JS.InvokeVoidAsync("alert", "Libro no encontrado para edición.");
+                    Navigation.NavigateTo("/catalogo");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al cargar libro para edición: {ex.Message}");
+                await JS.InvokeVoidAsync("alert", $"Error al cargar libro: {ex.Message}");
+                Navigation.NavigateTo("/catalogo");
+            }
+        }
+    }
+
+    private async Task GuardarLibro()
+    {
+        bool exito;
+        string mensaje;
+
+        // Crear una instancia del modelo Libro a partir del DTO para pasarla al servicio.
+        var libroModel = new BBAPP.Data.Models.Libro
+            {
+                // Solo se asigna Id si estamos editando, ya que para añadir se generaría en la BD
+                id = EsEditando ? libroDto.Id : 0,
+                Titulo = libroDto.Titulo,
+                Autor = libroDto.Autor,
+                TotalCopias = libroDto.TotalCopias,
+                // Asumimos que al añadir, CopiasDisponibles es igual a TotalCopias
+                CopiasDisponibles = libroDto.CopiasDisponibles == 0 && !EsEditando ? libroDto.TotalCopias : libroDto.CopiasDisponibles,
+                Genero = libroDto.Genero,
+                AnioPublicacion = libroDto.AnioPublicacion
+            };
+
+        if (EsEditando)
+        {
+            // Capturamos el objeto Libro que devuelve UpdateLibroAsync.
+            var libroActualizado = await LibroService.UpdateLibroAsync(libroModel);
+            // Determinamos el éxito basándonos en si el objeto devuelto no es null.
+            exito = libroActualizado != null;
+            mensaje = exito ? "Libro actualizado exitosamente." : "Error al actualizar el libro.";
+        }
+        else
+        {
+            // Capturamos el objeto Libro que devuelve AddLibroAsync.
+            var nuevoLibro = await LibroService.AddLibroAsync(libroModel);
+            // Determinamos el éxito basándonos en si el objeto devuelto no es null.
+            exito = nuevoLibro != null;
+            mensaje = exito ? "Libro añadido exitosamente." : "Error al añadir el libro.";
+        }
+
+        // Reemplazar alert con un modal personalizado si es posible en tu entorno Blazor
+        await JS.InvokeVoidAsync("alert", mensaje);
+        if (exito)
+        {
+            Navigation.NavigateTo("/catalogo"); // Volver al catálogo después de guardar
+        }
+    }
+
+    private void VolverAlCatalogo()
+    {
+        Navigation.NavigateTo("/catalogo");
+    }
+}

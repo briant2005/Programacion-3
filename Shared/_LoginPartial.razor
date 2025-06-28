@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BBAPP.Data.Models // Asegúrate de que este namespace es correcto para tu UsuarioAplicacion
+
+@inject SignInManager<UsuarioAplicacion> SignInManager
+@inject UserManager<UsuarioAplicacion> UserManager
+
+<AuthorizeView>
+    <Authorized>
+        <a href="Identity/Account/Manage">¡Hola, @context.User.Identity?.Name!</a>
+        <form method="post" action="Identity/Account/Logout">
+            <button type="submit" class="nav-link btn btn-link">Cerrar sesión</button>
+        </form>
+    </Authorized>
+    <NotAuthorized>
+        <a href="Identity/Account/Register">Registrarse</a>
+        <a href="Identity/Account/Login">Iniciar sesión</a>
+    </NotAuthorized>
+</AuthorizeView>
