@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\services\\prestamoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:services\\prestamoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\areas\\identity\\pages\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:areas\\identity\\pages\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -45,10 +49,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\services\\ireservaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:services\\ireservaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\services\\prestamoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:services\\prestamoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\services\\iprestamoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -174,11 +174,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 12,
+          "SelectedChildIndex": 3,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Perfil.razor",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Perfil.razor",
               "RelativeDocumentMoniker": "Pages\\Perfil.razor",
@@ -186,8 +190,7 @@
               "RelativeToolTip": "Pages\\Perfil.razor",
               "ViewState": "AQIAANcAAAAAAAAAAAAswN4AAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T17:47:46.824Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T17:47:46.824Z"
             },
             {
               "$type": "Document",
@@ -199,25 +202,24 @@
               "RelativeToolTip": "Services\\IPrestamoService.cs",
               "ViewState": "AQIAABYAAAAAAAAAAAAswDQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T17:15:57.371Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T17:15:57.371Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 0,
               "Title": "PrestamoService.cs",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\PrestamoService.cs",
               "RelativeDocumentMoniker": "Services\\PrestamoService.cs",
               "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\PrestamoService.cs",
               "RelativeToolTip": "Services\\PrestamoService.cs",
-              "ViewState": "AQIAAGkBAAAAAAAAAAAswIcBAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwA0AAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-27T17:03:26.96Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Catalogo.razor",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Catalogo.razor",
               "RelativeDocumentMoniker": "Pages\\Catalogo.razor",
@@ -225,12 +227,11 @@
               "RelativeToolTip": "Pages\\Catalogo.razor",
               "ViewState": "AQIAAPUAAAAAAAAAAAAuwBMBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T02:11:27.087Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T02:11:27.087Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "DetalleLibro.razor",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Libros\\DetalleLibro.razor",
               "RelativeDocumentMoniker": "Pages\\Libros\\DetalleLibro.razor",
@@ -238,12 +239,11 @@
               "RelativeToolTip": "Pages\\Libros\\DetalleLibro.razor",
               "ViewState": "AQIAAK0BAAAAAAAAAAAuwMsBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T17:19:23.069Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T17:19:23.069Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "NavMenu.razor",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Shared\\NavMenu.razor",
               "RelativeDocumentMoniker": "Shared\\NavMenu.razor",
@@ -251,8 +251,7 @@
               "RelativeToolTip": "Shared\\NavMenu.razor",
               "ViewState": "AQIAAJoAAAAAAAAAAAAAADgAAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T02:11:57.79Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T02:11:57.79Z"
             },
             {
               "$type": "Document",
@@ -264,8 +263,7 @@
               "RelativeToolTip": "Data\\Models\\Reserva.cs",
               "ViewState": "AQIAAB8AAAAAAAAAAAAjwCsAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T18:03:25.739Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T18:03:25.739Z"
             },
             {
               "$type": "Document",
@@ -277,12 +275,11 @@
               "RelativeToolTip": "Data\\Models\\Prestamo.cs",
               "ViewState": "AQIAABUAAAAAAAAAAAAowCYAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T16:54:04.65Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T16:54:04.65Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "IReservaService.cs",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\IReservaService.cs",
               "RelativeDocumentMoniker": "Services\\IReservaService.cs",
@@ -290,12 +287,11 @@
               "RelativeToolTip": "Services\\IReservaService.cs",
               "ViewState": "AQIAAAsAAAAAAAAAAAAUwBwAAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T18:17:16.161Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T18:17:16.161Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Prestamos.razor",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Prestamos\\Prestamos.razor",
               "RelativeDocumentMoniker": "Pages\\Prestamos\\Prestamos.razor",
@@ -303,12 +299,11 @@
               "RelativeToolTip": "Pages\\Prestamos\\Prestamos.razor",
               "ViewState": "AQIAAP4AAAAAAAAAAAAswBwBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T20:42:06.736Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T20:42:06.736Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "RealizarPrestamo.razor",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Prestamos\\RealizarPrestamo.razor",
               "RelativeDocumentMoniker": "Pages\\Prestamos\\RealizarPrestamo.razor",
@@ -316,8 +311,7 @@
               "RelativeToolTip": "Pages\\Prestamos\\RealizarPrestamo.razor",
               "ViewState": "AQIAAEUAAAAAAAAAAAAAACYAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T23:44:15.361Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T23:44:15.361Z"
             },
             {
               "$type": "Document",
@@ -329,12 +323,11 @@
               "RelativeToolTip": "Services\\LibroService.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAAcAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T17:17:31.574Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T17:17:31.574Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "_LoginPartial.cshtml",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Areas\\Identity\\Pages\\Shared\\_LoginPartial.cshtml",
               "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Shared\\_LoginPartial.cshtml",
@@ -342,12 +335,11 @@
               "RelativeToolTip": "Areas\\Identity\\Pages\\Shared\\_LoginPartial.cshtml",
               "ViewState": "AQIAAAUAAAAAAAAAAAAAABQAAAA3AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T02:28:21.047Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T02:28:21.047Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -355,12 +347,11 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AQIAAGYAAAAAAAAAAAAswIQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T03:58:50.765Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T03:58:50.765Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "_LoginPartial.razor",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Shared\\_LoginPartial.razor",
               "RelativeDocumentMoniker": "Shared\\_LoginPartial.razor",
@@ -368,8 +359,7 @@
               "RelativeToolTip": "Shared\\_LoginPartial.razor",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-10T20:50:26.169Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-10T20:50:26.169Z"
             },
             {
               "$type": "Document",
@@ -381,12 +371,11 @@
               "RelativeToolTip": "Pages\\Index.razor",
               "ViewState": "AQIAAFoAAAAAAAAAAAAAABQAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T02:15:31.981Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T02:15:31.981Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "SolicitudesPrestamo.razor",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Prestamos\\SolicitudesPrestamo.razor",
               "RelativeDocumentMoniker": "Pages\\Prestamos\\SolicitudesPrestamo.razor",
@@ -394,8 +383,7 @@
               "RelativeToolTip": "Pages\\Prestamos\\SolicitudesPrestamo.razor",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-10T19:45:59.03Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-10T19:45:59.03Z"
             },
             {
               "$type": "Document",
@@ -407,8 +395,7 @@
               "RelativeToolTip": "Data\\ProyectoBibliotecaContext.cs",
               "ViewState": "AQIAAEEAAAAAAAAAAAAswDMAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T16:55:46.16Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T16:55:46.16Z"
             },
             {
               "$type": "Document",
@@ -420,8 +407,7 @@
               "RelativeToolTip": "Data\\Models\\ApplicationUser.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T04:44:58.225Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T04:44:58.225Z"
             },
             {
               "$type": "Document",
@@ -457,8 +443,7 @@
               "RelativeToolTip": "Pages\\Reservas.razor",
               "ViewState": "AQIAAJEAAAAAAAAAAAAkwOgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T17:57:31.733Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T17:57:31.733Z"
             },
             {
               "$type": "Document",
@@ -482,8 +467,7 @@
               "RelativeToolTip": "Services\\MultaService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-10T18:20:23.935Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-10T18:20:23.935Z"
             },
             {
               "$type": "Document",
@@ -495,8 +479,7 @@
               "RelativeToolTip": "Services\\IMultaService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA7AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-10T18:19:55.69Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-10T18:19:55.69Z"
             },
             {
               "$type": "Document",
@@ -508,8 +491,7 @@
               "RelativeToolTip": "Data\\Models\\Multa.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-10T17:50:58.121Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-10T17:50:58.121Z"
             },
             {
               "$type": "Document",
@@ -521,8 +503,7 @@
               "RelativeToolTip": "Services\\ILibroService.cs",
               "ViewState": "AQIAAAoAAAAAAAAAAAAYwA4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T17:17:14.361Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-27T17:17:14.361Z"
             },
             {
               "$type": "Document",

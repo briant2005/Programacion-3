@@ -182,6 +182,13 @@ namespace BBAPP.Services
                 return false;
             }
 
+            // NUEVO: Eliminar multas asociadas antes de eliminar el préstamo
+            var multasAsociadas = await _context.Multas.Where(m => m.PrestamoId == id).ToListAsync();
+            if (multasAsociadas.Any())
+            {
+                _context.Multas.RemoveRange(multasAsociadas);
+            }
+
             // Si el préstamo está activo o pendiente de aprobación, devolver la copia al catálogo
             if (prestamo.Estado == EstadoPrestamo.Activo || prestamo.Estado == EstadoPrestamo.PendienteAprobacion)
             {

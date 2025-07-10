@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BBAPP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7fc41de48600a7b42308a523841e9cf9a7063f4b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bcc081ceb2ab294b0034df191b009824d3eb503f")]
 [assembly: System.Reflection.AssemblyProductAttribute("BBAPP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BBAPP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
