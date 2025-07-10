@@ -1,0 +1,166 @@
+﻿@page "/prestamos/solicitudes"
+@attribute [Authorize(Roles = "Admin, Bibliotecario")]
+@using BBAPP.Data.Models
+@using BBAPP.Services
+@using BBAPP.DTOs
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.Extensions.DependencyInjection
+@using System.Security.Claims
+
+@inject IPrestamoService PrestamoService
+@inject NavigationManager NavigationManager
+@inject IServiceScopeFactory ScopeFactory
+
+<h3>Solicitudes de Préstamo Pendientes</h3>
+
+@if (!string.IsNullOrEmpty(mensajeEstado))
+{
+    <div class="alert @(mensajeEstado.Contains("Error") ? "alert-danger" : "alert-success")" role="alert">
+        @mensajeEstado
+    </div>
+}
+
+@if (cargando)
+{
+    <p><em>Cargando solicitudes de préstamo...</em></p>
+}
+else if (solicitudesPendientes == null || !solicitudesPendientes.Any())
+{
+    <p>No hay solicitudes de préstamo pendientes en este momento.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID Préstamo</th>
+                <th>Libro</th>
+                <th>Usuario</th>
+                <th>Fecha Solicitud</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var solicitud in solicitudesPendientes)
+            {
+                <tr>
+                    <td>@solicitud.Id</td>
+                    <td>@solicitud.TituloLibro</td>
+                    <td>@solicitud.UsuarioNombreCompleto</td>
+                    <td>@solicitud.FechaPrestamo.ToShortDateString()</td>
+                    <td>@solicitud.Estado.ToString()</td>
+                    <td>
+                        <button class="btn btn-success btn-sm" @onclick="() => AprobarSolicitud(solicitud.Id)">Aprobar</button>
+                        <button class="btn btn-danger btn-sm" @onclick="() => DenegarSolicitud(solicitud.Id)">Denegar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<PrestamoDto> solicitudesPendientes;
+    private bool cargando = true;
+    private string mensajeEstado;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarSolicitudesPendientes();
+    }
+
+    private async Task CargarSolicitudesPendientes()
+    {
+        cargando = true;
+        mensajeEstado = string.Empty;
+        try
+        {
+            using (var scope = ScopeFactory.CreateScope())
+            {
+                var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
+                solicitudesPendientes = await prestamoService.GetPrestamosPendientesAprobacionAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            mensajeEstado = $"Error al cargar solicitudes: {ex.Message}";
+            Console.WriteLine($"Error al cargar solicitudes: {ex.Message}");
+            solicitudesPendientes = new List<PrestamoDto>();
+        }
+        finally
+        {
+            cargando = false;
+        }
+    }
+
+    private async Task AprobarSolicitud(int prestamoId)
+    {
+        mensajeEstado = string.Empty;
+        mensajeEstado = "Aprobando solicitud... por favor espere.";
+        StateHasChanged();
+
+        try
+        {
+            using (var scope = ScopeFactory.CreateScope())
+            {
+                var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
+                var prestamoAprobado = await prestamoService.AprobarPrestamoAsync(prestamoId);
+                if (prestamoAprobado != null)
+                {
+                    mensajeEstado = $"Solicitud de préstamo para '{prestamoAprobado.Libro?.Titulo}' aprobada exitosamente.";
+                    await CargarSolicitudesPendientes(); // Recargar la lista
+                }
+                else
+                {
+                    mensajeEstado = "Error al aprobar la solicitud.";
+                }
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            mensajeEstado = $"Error al aprobar solicitud: {ex.Message}";
+            Console.WriteLine($"Error al aprobar solicitud: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            mensajeEstado = $"Ocurrió un error inesperado al aprobar la solicitud: {ex.Message}";
+            Console.WriteLine($"Ocurrió un error inesperado al aprobar la solicitud: {ex.Message}");
+        }
+    }
+
+    private async Task DenegarSolicitud(int prestamoId)
+    {
+        mensajeEstado = string.Empty;
+        mensajeEstado = "Denegando solicitud... por favor espere.";
+        StateHasChanged();
+
+        try
+        {
+            using (var scope = ScopeFactory.CreateScope())
+            {
+                var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
+                var prestamoDenegado = await prestamoService.DenegarPrestamoAsync(prestamoId);
+                if (prestamoDenegado != null)
+                {
+                    mensajeEstado = $"Solicitud de préstamo para '{prestamoDenegado.Libro?.Titulo}' denegada exitosamente.";
+                    await CargarSolicitudesPendientes(); // Recargar la lista
+                }
+                else
+                {
+                    mensajeEstado = "Error al denegar la solicitud.";
+                }
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            mensajeEstado = $"Error al denegar solicitud: {ex.Message}";
+            Console.WriteLine($"Error al denegar solicitud: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            mensajeEstado = $"Ocurrió un error inesperado al denegar la solicitud: {ex.Message}";
+            Console.WriteLine($"Ocurrió un error inesperado al denegar la solicitud: {ex.Message}");
+        }
+    }
+}

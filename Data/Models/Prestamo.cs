@@ -36,6 +36,8 @@ namespace BBAPP.Data.Models
         Activo,
         Devuelto,
         Atrasado,
-        Cancelado
+        Cancelado,
+       PendienteAprobacion, // NEW
+        Denegado // NEW
     }
 }

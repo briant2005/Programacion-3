@@ -212,6 +212,35 @@ namespace BBAPP.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Multas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PrestamoId = table.Column<int>(type: "int", nullable: false),
+                    UsuarioId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FechaMulta = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Monto = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Pagada = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Multas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Multas_AspNetUsers_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Multas_Prestamos_PrestamoId",
+                        column: x => x.PrestamoId,
+                        principalTable: "Prestamos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reservas",
                 columns: table => new
                 {
@@ -239,6 +268,11 @@ namespace BBAPP.Migrations
                         principalTable: "Libros",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservas_Prestamos_PrestamoId",
+                        column: x => x.PrestamoId,
+                        principalTable: "Prestamos",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -246,9 +280,9 @@ namespace BBAPP.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "e5f6c402-6a8c-46b3-a04d-6b04f0423e98", null, "Usuario", "USUARIO" },
-                    { "e7013560-c8da-4715-ac62-12409d0bb4ba", null, "Admin", "ADMIN" },
-                    { "eb156385-2d40-4e22-828b-467ce1dfd2f0", null, "Bibliotecario", "BIBLIOTECARIO" }
+                    { "21dc7eac-9407-4632-b174-c78c2db4a5bb", null, "Admin", "ADMIN" },
+                    { "a879f886-13fb-4aab-84af-b58e8af3d751", null, "Bibliotecario", "BIBLIOTECARIO" },
+                    { "b7de78ec-4f37-4ed6-a555-dfd6fbb7e5f0", null, "Usuario", "USUARIO" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -289,6 +323,16 @@ namespace BBAPP.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Multas_PrestamoId",
+                table: "Multas",
+                column: "PrestamoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Multas_UsuarioId",
+                table: "Multas",
+                column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Prestamos_LibroId",
@@ -333,6 +377,9 @@ namespace BBAPP.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Multas");
 
             migrationBuilder.DropTable(
                 name: "Reservas");

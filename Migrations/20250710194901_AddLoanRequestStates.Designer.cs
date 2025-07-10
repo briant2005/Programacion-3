@@ -4,6 +4,7 @@ using BBAPP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BBAPP.Migrations
 {
     [DbContext(typeof(ProyectoBibliotecaContext))]
-    partial class ProyectoBibliotecaContextModelSnapshot : ModelSnapshot
+    [Migration("20250710194901_AddLoanRequestStates")]
+    partial class AddLoanRequestStates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

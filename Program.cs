@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;  // <<– Asegúrate de importar esto
+using Microsoft.EntityFrameworkCore; // <<– Asegúrate de importar esto
 using Microsoft.AspNetCore.Components.Authorization; // Necesario para el componente CascadingAuthenticationState en App.razor
 using BBAPP.Services; // Namespace para tus servicios de lógica de negocio
 using Microsoft.AspNetCore.Components.Server;
@@ -24,11 +24,11 @@ builder.Services.AddDbContext<ProyectoBibliotecaContext>(options =>
 builder.Services.AddDefaultIdentity<UsuarioAplicacion>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
-options.Password.RequireDigit = true;
-options.Password.RequireLowercase = true;
-options.Password.RequireUppercase = true;
-options.Password.RequiredLength = 8;
-options.User.RequireUniqueEmail = true;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 8;
+    options.User.RequireUniqueEmail = true;
 })
 .AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<ProyectoBibliotecaContext>();
@@ -39,7 +39,7 @@ builder.Services.AddServerSideBlazor();
 
 // Habilitar la autorización en componentes Blazor
 builder.Services.AddAuthorization();
-// ELIMINAMOS ESTA LÍNEA QUE DABA PROBLEMAS:
+// CORREGIDO: Descomentada esta línea. Es esencial para que Blazor Server reconozca los roles de Identity.
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<UsuarioAplicacion>>();
 
 // 4. Registrar tus servicios de lógica de negocio (Interfaces e Implementaciones)
@@ -47,6 +47,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ILibroService, LibroService>();
 builder.Services.AddScoped<IPrestamoService, PrestamoService>(); // CORREGIDO: IPrestamoService implementado por PrestamoService
 builder.Services.AddScoped<IReservaService, ReservaService>(); // <--- ¡ASEGÚRATE DE QUE ESTA LÍNEA ESTÉ PRESENTE Y DESCOMENTADA!
+builder.Services.AddScoped<IMultaService, MultaService>();
 
 
 var app = builder.Build();
@@ -72,13 +73,12 @@ app.Use(async (context, next) =>
 
 app.UseRouting();
 
-// IMPORTANTE: Middleware de autenticación y autorización para una app Blazor Server
-app.UseAuthentication();
+app.UseAuthentication(); // Must come before UseAuthorization
 app.UseAuthorization();
 
 // 6. Endpoints de Blazor
 app.MapControllers();
-app.MapRazorPages();          // ← Must be added
+app.MapRazorPages();     // ← Must be added
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 

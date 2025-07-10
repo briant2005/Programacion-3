@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BBAPP.Migrations
 {
     [DbContext(typeof(ProyectoBibliotecaContext))]
-    [Migration("20250627232248_initialrelease")]
+    [Migration("20250710175812_initialrelease")]
     partial class initialrelease
     {
         /// <inheritdoc />
@@ -66,6 +66,39 @@ namespace BBAPP.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Libros");
+                });
+
+            modelBuilder.Entity("BBAPP.Data.Models.Multa", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("FechaMulta")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Monto")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("Pagada")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PrestamoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsuarioId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PrestamoId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Multas");
                 });
 
             modelBuilder.Entity("BBAPP.Data.Models.Prestamo", b =>
@@ -244,19 +277,19 @@ namespace BBAPP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e7013560-c8da-4715-ac62-12409d0bb4ba",
+                            Id = "21dc7eac-9407-4632-b174-c78c2db4a5bb",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "eb156385-2d40-4e22-828b-467ce1dfd2f0",
+                            Id = "a879f886-13fb-4aab-84af-b58e8af3d751",
                             Name = "Bibliotecario",
                             NormalizedName = "BIBLIOTECARIO"
                         },
                         new
                         {
-                            Id = "e5f6c402-6a8c-46b3-a04d-6b04f0423e98",
+                            Id = "b7de78ec-4f37-4ed6-a555-dfd6fbb7e5f0",
                             Name = "Usuario",
                             NormalizedName = "USUARIO"
                         });
@@ -370,6 +403,25 @@ namespace BBAPP.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("BBAPP.Data.Models.Multa", b =>
+                {
+                    b.HasOne("BBAPP.Data.Models.Prestamo", "Prestamo")
+                        .WithMany()
+                        .HasForeignKey("PrestamoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BBAPP.Data.Models.UsuarioAplicacion", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Prestamo");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("BBAPP.Data.Models.Prestamo", b =>

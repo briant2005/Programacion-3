@@ -1,12 +1,16 @@
 ﻿@page "/perfil"
-@attribute [Authorize] 
+@attribute [Authorize]
 @using BBAPP.Data.Models
-@using BBAPP.Services 
+@using BBAPP.Services
+@using BBAPP.DTOs
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.Extensions.DependencyInjection
+@using System.Security.Claims // Necesario para ClaimsPrincipal
 
 @inject IPrestamoService PrestamoService
+@inject IReservaService ReservaService // Inyectar el servicio de Reservas
+@inject IMultaService MultaService     // Inyectar el servicio de Multas
 @inject IServiceScopeFactory ScopeFactory
 @inject NavigationManager NavigationManager
 
@@ -31,7 +35,7 @@ else
         </div>
     </div>
 
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-header">
             <h4>Historial de Préstamos</h4>
         </div>
@@ -46,6 +50,9 @@ else
             }
             else
             {
+                <div class="alert alert-info" role="alert">
+                    Puedes tener un máximo de <strong>@maxLibrosPorUsuario</strong> libros prestados simultáneamente.
+                </div>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -63,8 +70,100 @@ else
                                 <td>@prestamo.TituloLibro</td>
                                 <td>@prestamo.FechaPrestamo.ToShortDateString()</td>
                                 <td>@prestamo.FechaVencimiento.ToShortDateString()</td>
-                                <td>@(prestamo.FechaDevolucion?.ToShortDateString() ?? "Pendiente")</td>
+                                <td>
+                                    @* CAMBIO: Muestra el estado de la solicitud si no hay fecha de devolución real *@
+                                    @(prestamo.FechaDevolucion.HasValue ? prestamo.FechaDevolucion.Value.ToShortDateString() :
+                                        (prestamo.Estado == EstadoPrestamo.PendienteAprobacion ? "Pendiente de Aprobación" :
+                                        (prestamo.Estado == EstadoPrestamo.Denegado ? "Denegado" : "No Devuelto")))
+                                </td>
                                 <td>@prestamo.Estado.ToString()</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>Mis Reservas</h4>
+        </div>
+        <div class="card-body">
+            @if (historialReservas == null)
+            {
+                <p><em>Cargando historial de reservas...</em></p>
+            }
+            else if (!historialReservas.Any())
+            {
+                <p>No tienes reservas registradas.</p>
+            }
+            else
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Libro</th>
+                            <th>Fecha Reserva</th>
+                            <th>Fecha Expiración</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var reserva in historialReservas)
+                        {
+                            <tr>
+                                <td>@reserva.Libro?.Titulo</td>
+                                <td>@reserva.FechaReserva.ToShortDateString()</td>
+                                <td>@(reserva.FechaExpiracion.HasValue ? reserva.FechaExpiracion.Value.ToShortDateString() : "N/A")</td>
+                                <td>@reserva.Estado.ToString()</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Mis Multas Pendientes</h4>
+        </div>
+        <div class="card-body">
+            @if (multasPendientes == null)
+            {
+                <p><em>Cargando multas pendientes...</em></p>
+            }
+            else if (!multasPendientes.Any())
+            {
+                <p>No tienes multas pendientes.</p>
+            }
+            else
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Libro (Préstamo ID)</th>
+                            <th>Fecha Multa</th>
+                            <th>Monto</th>
+                            <th>Estado</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var multa in multasPendientes)
+                        {
+                            <tr>
+                                <td>@multa.Prestamo?.Libro?.Titulo (ID: @multa.PrestamoId)</td>
+                                <td>@multa.FechaMulta.ToShortDateString()</td>
+                                <td>@multa.Monto.ToString("C")</td>
+                                <td>@(multa.Pagada ? "Pagada" : "Pendiente")</td>
+                                <td>
+                                    @if (!multa.Pagada)
+                                    {
+                                        <button class="btn btn-success btn-sm" @onclick="() => PagarMulta(multa.Id)">Pagar</button>
+                                    }
+                                </td>
                             </tr>
                         }
                     </tbody>
@@ -77,6 +176,9 @@ else
 @code {
     private UsuarioAplicacion usuarioActual;
     private IEnumerable<PrestamoDto> historialPrestamos;
+    private IEnumerable<Reserva> historialReservas;
+    private IEnumerable<Multa> multasPendientes;
+    private int maxLibrosPorUsuario; // Nuevo campo para el límite de libros
 
     [CascadingParameter]
     private Task<AuthenticationState> authenticationState { get; set; }
@@ -88,23 +190,56 @@ else
 
         if (user.Identity.IsAuthenticated)
         {
-            // Usar un ámbito de servicio aislado para UserManager y PrestamoService
+            // Usar un ámbito de servicio aislado para UserManager y otros servicios
             using (var scope = ScopeFactory.CreateScope())
             {
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<UsuarioAplicacion>>();
                 var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
+                var reservaService = scope.ServiceProvider.GetRequiredService<IReservaService>();
+                var multaService = scope.ServiceProvider.GetRequiredService<IMultaService>();
 
                 usuarioActual = await userManager.GetUserAsync(user);
 
                 if (usuarioActual != null)
                 {
                     historialPrestamos = await prestamoService.ObtenerPrestamosDeUsuarioAsync(usuarioActual.Id);
+                    historialReservas = await reservaService.GetReservasPorUsuarioAsync(usuarioActual.Id);
+                    multasPendientes = await multaService.GetMultasPendientesPorUsuarioAsync(usuarioActual.Id);
                 }
+                maxLibrosPorUsuario = prestamoService.MaxLibrosPorUsuario; // Obtener el límite del servicio
             }
         }
         else
         {
-            NavigationManager.NavigateTo("/Identity/Account/Login"); // Redirigir a login si no está autenticado
+            NavigationManager.NavigateTo("/Identity/Account/Login");
+        }
+    }
+
+    private async Task PagarMulta(int multaId)
+    {
+        using (var scope = ScopeFactory.CreateScope())
+        {
+            var multaService = scope.ServiceProvider.GetRequiredService<IMultaService>();
+            try
+            {
+                var exito = await multaService.MarcarMultaComoPagadaAsync(multaId);
+                if (exito)
+                {
+                    var authState = await authenticationState;
+                    var user = authState.User;
+                    var currentUserId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                    multasPendientes = await multaService.GetMultasPendientesPorUsuarioAsync(currentUserId);
+                    StateHasChanged();
+                }
+                else
+                {
+                    Console.WriteLine($"Error: No se pudo pagar la multa con ID {multaId}.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al intentar pagar multa: {ex.Message}");
+            }
         }
     }
 }

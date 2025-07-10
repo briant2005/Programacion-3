@@ -70,6 +70,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJlc3RhbW9zXFJlYWxpemFyUHJlc3RhbW8ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Kevin/source/repos/Programacion-3/Pages/Prestamos/SolicitudesPrestamo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJlc3RhbW9zXFNvbGljaXR1ZGVzUHJlc3RhbW8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Kevin/source/repos/Programacion-3/Pages/Registro.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0cm8ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 

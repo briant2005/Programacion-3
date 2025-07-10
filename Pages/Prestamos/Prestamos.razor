@@ -1,30 +1,33 @@
 ﻿@page "/prestamos"
-@* ESTA ES LA DIRECTIVA DE RUTA PARA ESTA PÁGINA *@
-@attribute [Authorize(Roles = "Admin, Bibliotecario, Usuario")]
+@attribute [Authorize(Roles = "Admin, Bibliotecario")]
 @using BBAPP.Data.Models
 @using BBAPP.Services
 @using BBAPP.DTOs
 @using Microsoft.AspNetCore.Components.Authorization
-@using Microsoft.AspNetCore.Identity @* <-- ¡AÑADIDA ESTA DIRECTIVA! *@
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.Extensions.DependencyInjection
+@using System.Security.Claims // Necesario para ClaimTypes
+
 @inject IPrestamoService PrestamoService
 @inject NavigationManager NavigationManager
-@inject UserManager<UsuarioAplicacion> UserManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject IJSRuntime JSRuntime
-@inject IServiceScopeFactory ScopeFactory
-@* Inyectar para usar UserManager/SignInManager en un ámbito seguro *@
+@inject IServiceScopeFactory ScopeFactory // Para resolver UserManager en un ámbito seguro
 
 <h3>Gestión de Préstamos</h3>
 
-<p>
-    <a href="/prestamos/realizar" class="btn btn-primary">Realizar Nuevo Préstamo</a>
-</p>
+@* Mensajes de estado para el usuario *@
+@if (!string.IsNullOrEmpty(mensajeEstado))
+{
+    <div class="alert @(mensajeEstado.Contains("Error") ? "alert-danger" : "alert-success")" role="alert">
+        @mensajeEstado
+    </div>
+}
 
-@if (prestamos == null)
+@if (cargando)
 {
     <p><em>Cargando préstamos...</em></p>
 }
-else if (!prestamos.Any())
+else if (prestamos == null || !prestamos.Any())
 {
     <p>No hay préstamos registrados.</p>
 }
@@ -49,14 +52,26 @@ else
                     <td>@prestamo.TituloLibro</td>
                     <td>@prestamo.UsuarioNombreCompleto</td>
                     <td>@prestamo.FechaPrestamo.ToShortDateString()</td>
-                    <td>@prestamo.FechaVencimiento.ToShortDateString()</td>
-                    <td>@(prestamo.FechaDevolucion?.ToShortDateString() ?? "Pendiente")</td>
+                    <td>@(prestamo.FechaVencimiento.ToShortDateString())</td>
+                    <td>
+                        @* Muestra la fecha de devolución si existe, si no, muestra el estado de la devolución/aprobación *@
+                        @(prestamo.FechaDevolucion.HasValue ? prestamo.FechaDevolucion.Value.ToShortDateString() :
+                            (prestamo.Estado == EstadoPrestamo.PendienteAprobacion ? "Pendiente de Aprobación" : "No Devuelto"))
+                    </td>
                     <td>@prestamo.Estado.ToString()</td>
                     <td>
-                        @if (prestamo.Estado == EstadoPrestamo.Activo && (IsAdminOrBibliotecario || CurrentUserId == prestamo.UsuarioId))
+                        @* Botones para préstamos pendientes de aprobación (solo para Admin/Bibliotecario) *@
+                        @if (prestamo.Estado == EstadoPrestamo.PendienteAprobacion && IsAdminOrBibliotecario)
+                        {
+                            <button class="btn btn-success btn-sm" @onclick="() => AprobarSolicitud(prestamo.Id)">Aprobar</button>
+                            <button class="btn btn-danger btn-sm" @onclick="() => DenegarSolicitud(prestamo.Id)">Denegar</button>
+                        }
+                        @* Botón Devolver: Visible para préstamos Activos (solo para Admin/Bibliotecario en esta página) *@
+                        @if (prestamo.Estado == EstadoPrestamo.Activo && IsAdminOrBibliotecario)
                         {
                             <button class="btn btn-success btn-sm" @onclick="() => ProcesarDevolucion(prestamo.Id)">Devolver</button>
                         }
+                        @* Botón Eliminar: Visible solo para Admin/Bibliotecario (para cualquier estado) *@
                         @if (IsAdminOrBibliotecario)
                         {
                             <button class="btn btn-danger btn-sm" @onclick="() => EliminarPrestamo(prestamo.Id)">Eliminar</button>
@@ -72,95 +87,198 @@ else
     private IEnumerable<PrestamoDto> prestamos;
     private string CurrentUserId;
     private bool IsAdminOrBibliotecario = false;
+    private bool cargando = true;
+    private string mensajeEstado; // Para mostrar mensajes de éxito/error
 
     protected override async Task OnInitializedAsync()
     {
+        await CargarPrestamos();
+    }
+
+    private async Task CargarPrestamos()
+    {
+        cargando = true;
+        mensajeEstado = string.Empty; // Limpiar mensajes anteriores
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
 
         if (user.Identity.IsAuthenticated)
         {
+            CurrentUserId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            IsAdminOrBibliotecario = user.IsInRole("Admin") || user.IsInRole("Bibliotecario");
+
+            // Si el usuario no es Admin ni Bibliotecario, esta página no debería ser accesible
+            // El atributo [Authorize] ya maneja la redirección, pero es una doble verificación.
+            if (!IsAdminOrBibliotecario)
+            {
+                NavigationManager.NavigateTo("/AccessDenied");
+                return;
+            }
+
             using (var scope = ScopeFactory.CreateScope())
             {
                 var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<UsuarioAplicacion>>();
 
-                var usuarioActual = await userManager.GetUserAsync(user);
-                if (usuarioActual != null)
+                try
                 {
-                    if (user.IsInRole("Admin") || user.IsInRole("Bibliotecario"))
-                    {
-                        prestamos = await prestamoService.GetTodosPrestamosAsync();
-                    }
-                    else
-                    {
-                        prestamos = await prestamoService.ObtenerPrestamosDeUsuarioAsync(CurrentUserId);
-                    }
+                    // Admin y Bibliotecario ven TODOS los préstamos (activos, devueltos, pendientes, denegados, etc.)
+                    prestamos = await prestamoService.GetTodosPrestamosAsync();
                 }
-                else
+                catch (Exception ex)
                 {
+                    mensajeEstado = $"Error al cargar préstamos: {ex.Message}";
+                    Console.WriteLine($"Error al cargar préstamos: {ex.Message}");
                     prestamos = new List<PrestamoDto>();
                 }
             }
         }
         else
         {
+            // Si no está autenticado, no hay préstamos que mostrar y será redirigido por [Authorize]
             prestamos = new List<PrestamoDto>();
         }
+        cargando = false;
     }
 
     private async Task ProcesarDevolucion(int prestamoId)
     {
-        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", "¿Está seguro de que desea procesar esta devolución?");
-        if (confirm)
-        {
-            try
-            {
-                using (var scope = ScopeFactory.CreateScope())
-                {
-                    var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
-                    // CORREGIDO: Llamada al método ProcesarDevolucionAsync sin DevolucionDto y sin deconstrucción de tupla
-                    var prestamoActualizado = await prestamoService.ProcesarDevolucionAsync(prestamoId);
+        mensajeEstado = string.Empty;
+        mensajeEstado = "Procesando devolución... por favor espere.";
+        StateHasChanged();
 
-                    if (prestamoActualizado != null)
-                    {
-                        await JSRuntime.InvokeVoidAsync("alert", $"Libro '{prestamoActualizado.Libro?.Titulo}' devuelto exitosamente.");
-                        await OnInitializedAsync();
-                    }
-                    else
-                    {
-                        await JSRuntime.InvokeVoidAsync("alert", "Error al procesar la devolución.");
-                    }
+        try
+        {
+            using (var scope = ScopeFactory.CreateScope())
+            {
+                var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
+                var prestamoActualizado = await prestamoService.ProcesarDevolucionAsync(prestamoId);
+
+                if (prestamoActualizado != null)
+                {
+                    mensajeEstado = $"Libro '{prestamoActualizado.Libro?.Titulo}' devuelto exitosamente.";
+                    await CargarPrestamos();
+                }
+                else
+                {
+                    mensajeEstado = "Error al procesar la devolución.";
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Ocurrió un error inesperado al procesar devolución: {ex.Message}");
-                await JSRuntime.InvokeVoidAsync("alert", $"Ocurrió un error inesperado: {ex.Message}");
-            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            mensajeEstado = $"Error al devolver libro: {ex.Message}";
+            Console.WriteLine($"Error al devolver libro: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            mensajeEstado = $"Ocurrió un error inesperado al procesar devolución: {ex.Message}";
+            Console.WriteLine($"Ocurrió un error inesperado al procesar devolución: {ex.Message}");
         }
     }
 
     private async Task EliminarPrestamo(int prestamoId)
     {
-        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", "¿Está seguro de que desea eliminar este préstamo? Esta acción es irreversible.");
-        if (confirm)
+        mensajeEstado = string.Empty;
+        mensajeEstado = "Eliminando préstamo... por favor espere.";
+        StateHasChanged();
+
+        try
         {
-            try
+            using (var scope = ScopeFactory.CreateScope())
             {
-                using (var scope = ScopeFactory.CreateScope())
+                var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
+                var exito = await prestamoService.EliminarPrestamoAsync(prestamoId);
+                if (exito)
                 {
-                    var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
-                    await prestamoService.EliminarPrestamoAsync(prestamoId);
-                    await JSRuntime.InvokeVoidAsync("alert", "Préstamo eliminado exitosamente.");
-                    await OnInitializedAsync();
+                    mensajeEstado = "Préstamo eliminado exitosamente.";
+                    await CargarPrestamos();
+                }
+                else
+                {
+                    mensajeEstado = "Error al eliminar préstamo.";
                 }
             }
-            catch (Exception ex)
+        }
+        catch (InvalidOperationException ex)
+        {
+            mensajeEstado = $"Error al eliminar préstamo: {ex.Message}";
+            Console.WriteLine($"Error al eliminar préstamo: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            mensajeEstado = $"Ocurrió un error inesperado al eliminar préstamo: {ex.Message}";
+            Console.WriteLine($"Ocurrió un error inesperado al eliminar préstamo: {ex.Message}");
+        }
+    }
+
+    // NUEVOS MÉTODOS para aprobar y denegar solicitudes de préstamo
+    private async Task AprobarSolicitud(int prestamoId)
+    {
+        mensajeEstado = string.Empty;
+        mensajeEstado = "Aprobando solicitud... por favor espere.";
+        StateHasChanged();
+
+        try
+        {
+            using (var scope = ScopeFactory.CreateScope())
             {
-                Console.WriteLine($"Error al eliminar préstamo: {ex.Message}");
-                await JSRuntime.InvokeVoidAsync("alert", $"Error: {ex.Message}");
+                var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
+                var prestamoAprobado = await prestamoService.AprobarPrestamoAsync(prestamoId);
+                if (prestamoAprobado != null)
+                {
+                    mensajeEstado = $"Solicitud de préstamo para '{prestamoAprobado.Libro?.Titulo}' aprobada exitosamente.";
+                    await CargarPrestamos(); // Recargar la lista para actualizar el estado
+                }
+                else
+                {
+                    mensajeEstado = "Error al aprobar la solicitud.";
+                }
             }
+        }
+        catch (InvalidOperationException ex)
+        {
+            mensajeEstado = $"Error al aprobar solicitud: {ex.Message}";
+            Console.WriteLine($"Error al aprobar solicitud: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            mensajeEstado = $"Ocurrió un error inesperado al aprobar la solicitud: {ex.Message}";
+            Console.WriteLine($"Ocurrió un error inesperado al aprobar la solicitud: {ex.Message}");
+        }
+    }
+
+    private async Task DenegarSolicitud(int prestamoId)
+    {
+        mensajeEstado = string.Empty;
+        mensajeEstado = "Denegando solicitud... por favor espere.";
+        StateHasChanged();
+
+        try
+        {
+            using (var scope = ScopeFactory.CreateScope())
+            {
+                var prestamoService = scope.ServiceProvider.GetRequiredService<IPrestamoService>();
+                var prestamoDenegado = await prestamoService.DenegarPrestamoAsync(prestamoId);
+                if (prestamoDenegado != null)
+                {
+                    mensajeEstado = $"Solicitud de préstamo para '{prestamoDenegado.Libro?.Titulo}' denegada exitosamente.";
+                    await CargarPrestamos(); // Recargar la lista para actualizar el estado
+                }
+                else
+                {
+                    mensajeEstado = "Error al denegar la solicitud.";
+                }
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            mensajeEstado = $"Error al denegar solicitud: {ex.Message}";
+            Console.WriteLine($"Error al denegar solicitud: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            mensajeEstado = $"Ocurrió un error inesperado al denegar la solicitud: {ex.Message}";
+            Console.WriteLine($"Ocurrió un error inesperado al denegar la solicitud: {ex.Message}");
         }
     }
 }

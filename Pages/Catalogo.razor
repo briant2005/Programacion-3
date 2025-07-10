@@ -1,10 +1,13 @@
 ﻿@page "/catalogo"
-@attribute [Authorize] 
+@attribute [Authorize]
 @inject ILibroService LibroService
+@inject IPrestamoService PrestamoService // Inyectar el servicio de Préstamos
+@inject IReservaService ReservaService   // Inyectar el servicio de Reservas
 @inject NavigationManager Navigation
 @inject IJSRuntime JS
-@using BBAPP.Data.Models 
+@using BBAPP.Data.Models
 @using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims // Necesario para ClaimsPrincipal
 
 <div class="catalogo-container">
     <h1>Catálogo de Libros</h1>
@@ -18,6 +21,13 @@
         </Authorized>
     </AuthorizeView>
 
+    @if (!string.IsNullOrEmpty(mensajeEstado))
+    {
+        <div class="alert @(mensajeEstado.Contains("Error") ? "alert-danger" : "alert-success")" role="alert">
+            @mensajeEstado
+        </div>
+    }
+
     @if (cargando)
     {
         <p><em>Cargando libros...</em></p>
@@ -28,6 +38,14 @@
     }
     else
     {
+        <AuthorizeView Roles="Usuario">
+            <Authorized>
+                <div class="alert alert-info mt-3" role="alert">
+                    Como usuario regular, puedes tener un máximo de <strong>@maxLibrosPorUsuario</strong> libros prestados simultáneamente.
+                </div>
+            </Authorized>
+        </AuthorizeView>
+
         <div class="libros-grid">
             @foreach (var libro in libros)
             {
@@ -41,38 +59,116 @@
                         <p><strong>Copias Disponibles:</strong> @libro.CopiasDisponibles / @libro.TotalCopias</p>
                         <button class="btn btn-info btn-sm" @onclick="() => VerDetalles(libro.id)">Ver Detalles</button>
 
+                        @* Botones para Administrador y Bibliotecario *@
                         <AuthorizeView Roles="Admin, Bibliotecario">
                             <Authorized>
                                 <button class="btn btn-warning btn-sm" @onclick="() => EditarLibro(libro.id)">Editar</button>
                                 <button class="btn btn-danger btn-sm" @onclick="() => ConfirmarEliminar(libro.id)">Eliminar</button>
                             </Authorized>
                         </AuthorizeView>
+
+                        @* Botones para Usuario Regular (Prestar y Reservar) *@
+                        <AuthorizeView Roles="Usuario">
+                            <Authorized>
+                                @{
+                                    // Determinar si el usuario tiene un préstamo ACTIVO o PENDIENTE para este libro
+                                    bool userHasActiveOrPendingLoanForThisBook = userActiveLoans?.Any(p => p.LibroId == libro.id && (p.Estado == EstadoPrestamo.Activo || p.Estado == EstadoPrestamo.PendienteAprobacion)) ?? false;
+                                    // Determinar si el usuario tiene CUALQUIER reserva activa (pendiente o lista para recoger) para este libro
+                                    bool userHasActiveReservationForThisBook = userActiveReservations?.Any(r => r.LibroId == libro.id && (r.Estado == EstadoReserva.Pendiente || r.Estado == EstadoReserva.ListaParaRecoger)) ?? false;
+                                }
+
+                                @if (libro.CopiasDisponibles > 0 && userCanBorrow && !userHasActiveOrPendingLoanForThisBook && !userHasActiveReservationForThisBook)
+                                {
+                                    <button class="btn btn-success btn-sm" @onclick="() => PrestarLibro(libro.id)">
+                                        Prestar Libro
+                                    </button>
+                                }
+                                else if (libro.CopiasDisponibles == 0 && !userHasActiveReservationForThisBook && !userHasActiveOrPendingLoanForThisBook) @* CAMBIO: Añadida la comprobación de préstamo activo/pendiente *@
+                                {
+                                    <button class="btn btn-info btn-sm" @onclick="() => ReservarLibro(libro.id)">
+                                        Reservar Libro
+                                    </button>
+                                }
+                                else if (userHasActiveOrPendingLoanForThisBook)
+                                {
+                                    <span class="badge bg-secondary">Ya lo tienes prestado o en solicitud</span> @* Mensaje actualizado *@
+                                }
+                                else if (userHasActiveReservationForThisBook)
+                                {
+                                    <span class="badge bg-secondary">Ya lo tienes reservado</span>
+                                }
+                                else if (!userCanBorrow)
+                                {
+                                    <span class="badge bg-warning">No elegible para préstamo</span>
+                                }
+                            </Authorized>
+                        </AuthorizeView>
                     </div>
                 </div>
             }
-            <!-- Cierre del grid de libros -->
         </div>
     }
 </div>
 
 @code {
-    private IEnumerable<Libro> libros; // CAMBIADO: Ahora usa el modelo Libro
+    private IEnumerable<Libro> libros;
     private bool cargando = true;
+    private string mensajeEstado;
+    private string currentUserId;
 
-    // Propiedad para acceder al estado de autenticación (para verificar roles)
+    // Nuevas propiedades para almacenar el estado del usuario, cargadas una vez
+    private bool userCanBorrow = false;
+    private IEnumerable<PrestamoDto> userActiveLoans; // Ahora puede incluir préstamos pendientes de aprobación para ciertas lógicas
+    private IEnumerable<Reserva> userActiveReservations;
+    private int maxLibrosPorUsuario; // Nuevo campo para el límite de libros
+
     [CascadingParameter]
     private Task<AuthenticationState> authenticationState { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        var authState = await authenticationState;
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            currentUserId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        }
+
+        await CargarDatosIniciales();
+    }
+
+    private async Task CargarDatosIniciales()
+    {
+        cargando = true;
+        mensajeEstado = string.Empty;
+
         try
         {
-            libros = await LibroService.GetTodosLibrosAsync(); // CAMBIADO: Llamada a GetTodosLibrosAsync
+            libros = await LibroService.GetTodosLibrosAsync();
+            maxLibrosPorUsuario = PrestamoService.MaxLibrosPorUsuario; // Obtener el límite del servicio
+
+            if (currentUserId != null)
+            {
+                userCanBorrow = await PrestamoService.PuedeUsuarioPedirPrestadoLibro(currentUserId);
+                // Cargar todos los préstamos del usuario (activos, pendientes, etc.) para las comprobaciones
+                userActiveLoans = await PrestamoService.ObtenerPrestamosDeUsuarioAsync(currentUserId);
+                userActiveReservations = await ReservaService.GetReservasPorUsuarioAsync(currentUserId);
+            }
+            else
+            {
+                userCanBorrow = false;
+                userActiveLoans = new List<PrestamoDto>();
+                userActiveReservations = new List<Reserva>();
+            }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error al cargar libros: {ex.Message}");
-            libros = new List<Libro>(); // Asegurar que no sea null
+            mensajeEstado = $"Error al cargar datos: {ex.Message}";
+            Console.WriteLine($"Error al cargar datos: {ex.Message}");
+            libros = new List<Libro>();
+            userActiveLoans = new List<PrestamoDto>();
+            userActiveReservations = new List<Reserva>();
         }
         finally
         {
@@ -97,19 +193,83 @@
 
     private async Task ConfirmarEliminar(int idLibro)
     {
-        bool confirmacion = await JS.InvokeAsync<bool>("confirm", "¿Estás seguro de que deseas eliminar este libro? (Se realizará una eliminación suave)");
-        if (confirmacion)
+        mensajeEstado = "Confirmando eliminación... (Se realizará una eliminación suave)";
+        StateHasChanged();
+
+        await Task.Delay(500);
+
+        try
         {
-            var exito = await LibroService.DeleteLibroAsync(idLibro); // CAMBIADO: Llamada a DeleteLibroAsync
+            var exito = await LibroService.DeleteLibroAsync(idLibro);
             if (exito)
             {
-                libros = await LibroService.GetTodosLibrosAsync(); // Recargar los libros
-                StateHasChanged();
+                mensajeEstado = "Libro eliminado exitosamente.";
+                await CargarDatosIniciales();
             }
             else
             {
-                await JS.InvokeVoidAsync("alert", "No se pudo eliminar el libro.");
+                mensajeEstado = "Error: No se pudo eliminar el libro.";
             }
+        }
+        catch (Exception ex)
+        {
+            mensajeEstado = $"Error al eliminar el libro: {ex.Message}";
+            Console.WriteLine($"Error al eliminar el libro: {ex.Message}");
+        }
+    }
+
+    private async Task PrestarLibro(int libroId)
+    {
+        if (string.IsNullOrEmpty(currentUserId))
+        {
+            mensajeEstado = "Error: Usuario no autenticado para realizar un préstamo.";
+            return;
+        }
+
+        try
+        {
+            var nuevoPrestamo = new Prestamo
+                {
+                    LibroId = libroId,
+                    UsuarioId = currentUserId
+                };
+            await PrestamoService.RealizarPrestamoAsync(nuevoPrestamo);
+            mensajeEstado = "Solicitud de préstamo enviada para aprobación. Se le notificará cuando sea aprobada."; // Mensaje actualizado
+            await CargarDatosIniciales();
+        }
+        catch (InvalidOperationException ex)
+        {
+            mensajeEstado = $"Error al solicitar préstamo: {ex.Message}"; // Mensaje actualizado
+        }
+        catch (Exception ex)
+        {
+            mensajeEstado = $"Error inesperado al solicitar préstamo: {ex.Message}";
+            Console.WriteLine($"Error al solicitar préstamo: {ex.Message}");
+        }
+    }
+
+    private async Task ReservarLibro(int libroId)
+    {
+        if (string.IsNullOrEmpty(currentUserId))
+        {
+            mensajeEstado = "Error: Usuario no autenticado para realizar una reserva.";
+            return;
+        }
+
+        try
+        {
+            await ReservaService.CrearReservaAsync(libroId, currentUserId);
+            mensajeEstado = "Libro reservado exitosamente. Se le notificará cuando esté disponible.";
+            await CargarDatosIniciales();
+        }
+        catch (InvalidOperationException ex)
+        {
+            mensajeEstado = $"Error al reservar libro: {ex.Message}";
+        }
+        catch (Exception ex)
+        {
+            mensajeEstado = $"Error inesperado al reservar libro: {ex.Message}";
+            Console.WriteLine($"Error al reservar libro: {ex.Message}");
         }
     }
 }

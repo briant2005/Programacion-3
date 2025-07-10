@@ -3,24 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\reservas.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:pages\\reservas.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\areas\\identity\\pages\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:areas\\identity\\pages\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\shared\\_loginpartial.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:shared\\_loginpartial.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\perfil.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:pages\\perfil.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\prestamos\\prestamos.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:pages\\prestamos\\prestamos.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\libros\\detallelibro.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:pages\\libros\\detallelibro.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\services\\reservaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:services\\reservaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\shared\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:shared\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\prestamos\\solicitudesprestamo.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:pages\\prestamos\\solicitudesprestamo.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\catalogo.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:pages\\catalogo.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\prestamos\\realizarprestamo.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:pages\\prestamos\\realizarprestamo.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\services\\ireservaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:services\\ireservaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\data\\models\\reserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:data\\models\\reserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\services\\prestamoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -31,36 +55,60 @@
       "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:services\\iprestamoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\prestamos\\prestamos.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:pages\\prestamos\\prestamos.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\data\\models\\prestamo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:data\\models\\prestamo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\catalogo.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:pages\\catalogo.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\data\\models\\reserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:data\\models\\reserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\shared\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:shared\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\data\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:data\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\data\\proyectobibliotecacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:data\\proyectobibliotecacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\services\\multaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:services\\multaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\services\\libroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:services\\libroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\services\\imultaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:services\\imultaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:pages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\data\\models\\multa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:data\\models\\multa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\services\\ilibroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:services\\ilibroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\reservas.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:pages\\reservas.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\services\\reservaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:services\\reservaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\shared\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:shared\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\prestamos\\realizarprestamo.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:pages\\prestamos\\realizarprestamo.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\admin\\gestionroles.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:pages\\admin\\gestionroles.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\registro.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -79,36 +127,12 @@
       "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:pages\\libros\\anadireditarlibro.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\services\\ilibroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:services\\ilibroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\services\\libroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:services\\libroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\perfil.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:pages\\perfil.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\migrations\\20250627232248_initialrelease.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:migrations\\20250627232248_initialrelease.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\data\\proyectobibliotecacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:data\\proyectobibliotecacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\data\\revalidatingidentityauthenticationstateprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:data\\revalidatingidentityauthenticationstateprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\data\\models\\libro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:data\\models\\libro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\data\\models\\prestamo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:data\\models\\prestamo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\pages\\logout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -135,20 +159,12 @@
       "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:dtos\\crearprestamodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\data\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:data\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\areas\\identity\\pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:areas\\identity\\pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|c:\\users\\kevin\\source\\repos\\programacion-3\\areas\\identity\\pages\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{92499D93-935E-4C89-AE83-68EFD3890F3D}|BBAPP.csproj|solutionrelative:areas\\identity\\pages\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -158,91 +174,89 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 12,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DetalleLibro.razor",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Libros\\DetalleLibro.razor",
-              "RelativeDocumentMoniker": "Pages\\Libros\\DetalleLibro.razor",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Libros\\DetalleLibro.razor",
-              "RelativeToolTip": "Pages\\Libros\\DetalleLibro.razor",
-              "ViewState": "AQIAAH4AAAAAAAAAAAAkwIIAAAAAAAAA",
+              "DocumentIndex": 2,
+              "Title": "Perfil.razor",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Perfil.razor",
+              "RelativeDocumentMoniker": "Pages\\Perfil.razor",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Perfil.razor",
+              "RelativeToolTip": "Pages\\Perfil.razor",
+              "ViewState": "AQIAANcAAAAAAAAAAAAswN4AAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T17:19:23.069Z",
+              "WhenOpened": "2025-06-27T17:47:46.824Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "Register.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
-              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
-              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
-              "ViewState": "AQIAADsAAAAAAAAAAIAwwEoAAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T03:53:22.731Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAGsAAAAAAAAAAAASwHoAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T03:58:50.765Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Prestamos.razor",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Prestamos\\Prestamos.razor",
-              "RelativeDocumentMoniker": "Pages\\Prestamos\\Prestamos.razor",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Prestamos\\Prestamos.razor",
-              "RelativeToolTip": "Pages\\Prestamos\\Prestamos.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAKYAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T20:42:06.736Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "IPrestamoService.cs",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\IPrestamoService.cs",
               "RelativeDocumentMoniker": "Services\\IPrestamoService.cs",
               "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\IPrestamoService.cs",
               "RelativeToolTip": "Services\\IPrestamoService.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAiwCAAAABRAAAA",
+              "ViewState": "AQIAABYAAAAAAAAAAAAswDQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-27T17:15:57.371Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
               "Title": "PrestamoService.cs",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\PrestamoService.cs",
               "RelativeDocumentMoniker": "Services\\PrestamoService.cs",
               "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\PrestamoService.cs",
               "RelativeToolTip": "Services\\PrestamoService.cs",
-              "ViewState": "AQIAALoAAAAAAAAAAAAswL8AAAA7AAAA",
+              "ViewState": "AQIAAGkBAAAAAAAAAAAswIcBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-27T17:03:26.96Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Catalogo.razor",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Catalogo.razor",
+              "RelativeDocumentMoniker": "Pages\\Catalogo.razor",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Catalogo.razor",
+              "RelativeToolTip": "Pages\\Catalogo.razor",
+              "ViewState": "AQIAAPUAAAAAAAAAAAAuwBMBAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-27T02:11:27.087Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "DetalleLibro.razor",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Libros\\DetalleLibro.razor",
+              "RelativeDocumentMoniker": "Pages\\Libros\\DetalleLibro.razor",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Libros\\DetalleLibro.razor",
+              "RelativeToolTip": "Pages\\Libros\\DetalleLibro.razor",
+              "ViewState": "AQIAAK0BAAAAAAAAAAAuwMsBAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-27T17:19:23.069Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Shared\\NavMenu.razor",
+              "RelativeDocumentMoniker": "Shared\\NavMenu.razor",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Shared\\NavMenu.razor",
+              "RelativeToolTip": "Shared\\NavMenu.razor",
+              "ViewState": "AQIAAJoAAAAAAAAAAAAAADgAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-27T02:11:57.79Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "Reserva.cs",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\Models\\Reserva.cs",
               "RelativeDocumentMoniker": "Data\\Models\\Reserva.cs",
@@ -255,33 +269,187 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 13,
+              "Title": "Prestamo.cs",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\Models\\Prestamo.cs",
+              "RelativeDocumentMoniker": "Data\\Models\\Prestamo.cs",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\Models\\Prestamo.cs",
+              "RelativeToolTip": "Data\\Models\\Prestamo.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAowCYAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T16:54:04.65Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "IReservaService.cs",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\IReservaService.cs",
               "RelativeDocumentMoniker": "Services\\IReservaService.cs",
               "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\IReservaService.cs",
               "RelativeToolTip": "Services\\IReservaService.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAA2wBwAAAA5AAAA",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAUwBwAAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-27T18:17:16.161Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ReservaService.cs",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\ReservaService.cs",
-              "RelativeDocumentMoniker": "Services\\ReservaService.cs",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\ReservaService.cs",
-              "RelativeToolTip": "Services\\ReservaService.cs",
-              "ViewState": "AQIAAKwAAAAAAAAAAADwv9kAAAAAAAAA",
+              "DocumentIndex": 3,
+              "Title": "Prestamos.razor",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Prestamos\\Prestamos.razor",
+              "RelativeDocumentMoniker": "Pages\\Prestamos\\Prestamos.razor",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Prestamos\\Prestamos.razor",
+              "RelativeToolTip": "Pages\\Prestamos\\Prestamos.razor",
+              "ViewState": "AQIAAP4AAAAAAAAAAAAswBwBAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-27T20:42:06.736Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "RealizarPrestamo.razor",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Prestamos\\RealizarPrestamo.razor",
+              "RelativeDocumentMoniker": "Pages\\Prestamos\\RealizarPrestamo.razor",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Prestamos\\RealizarPrestamo.razor",
+              "RelativeToolTip": "Pages\\Prestamos\\RealizarPrestamo.razor",
+              "ViewState": "AQIAAEUAAAAAAAAAAAAAACYAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-27T23:44:15.361Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "LibroService.cs",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\LibroService.cs",
+              "RelativeDocumentMoniker": "Services\\LibroService.cs",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\LibroService.cs",
+              "RelativeToolTip": "Services\\LibroService.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAcAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T18:17:42.432Z",
+              "WhenOpened": "2025-06-27T17:17:31.574Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "_LoginPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Areas\\Identity\\Pages\\Shared\\_LoginPartial.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Shared\\_LoginPartial.cshtml",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Areas\\Identity\\Pages\\Shared\\_LoginPartial.cshtml",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Shared\\_LoginPartial.cshtml",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAAABQAAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-27T02:28:21.047Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAGYAAAAAAAAAAAAswIQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T03:58:50.765Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_LoginPartial.razor",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Shared\\_LoginPartial.razor",
+              "RelativeDocumentMoniker": "Shared\\_LoginPartial.razor",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Shared\\_LoginPartial.razor",
+              "RelativeToolTip": "Shared\\_LoginPartial.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-10T20:50:26.169Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Index.razor",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Index.razor",
+              "RelativeDocumentMoniker": "Pages\\Index.razor",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Index.razor",
+              "RelativeToolTip": "Pages\\Index.razor",
+              "ViewState": "AQIAAFoAAAAAAAAAAAAAABQAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-27T02:15:31.981Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SolicitudesPrestamo.razor",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Prestamos\\SolicitudesPrestamo.razor",
+              "RelativeDocumentMoniker": "Pages\\Prestamos\\SolicitudesPrestamo.razor",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Prestamos\\SolicitudesPrestamo.razor",
+              "RelativeToolTip": "Pages\\Prestamos\\SolicitudesPrestamo.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-10T19:45:59.03Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ProyectoBibliotecaContext.cs",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\ProyectoBibliotecaContext.cs",
+              "RelativeDocumentMoniker": "Data\\ProyectoBibliotecaContext.cs",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\ProyectoBibliotecaContext.cs",
+              "RelativeToolTip": "Data\\ProyectoBibliotecaContext.cs",
+              "ViewState": "AQIAAEEAAAAAAAAAAAAswDMAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T16:55:46.16Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\Models\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "Data\\Models\\ApplicationUser.cs",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\Models\\ApplicationUser.cs",
+              "RelativeToolTip": "Data\\Models\\ApplicationUser.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T04:44:58.225Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "AnadirEditarLibro.razor",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Libros\\AnadirEditarLibro.razor",
+              "RelativeDocumentMoniker": "Pages\\Libros\\AnadirEditarLibro.razor",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Libros\\AnadirEditarLibro.razor",
+              "RelativeToolTip": "Pages\\Libros\\AnadirEditarLibro.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEUAAABTAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-27T17:29:05.736Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "ViewState": "AQIAADMAAAAAAAAAAAAAAD0AAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-27T03:46:41.238Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
               "Title": "Reservas.razor",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Reservas.razor",
               "RelativeDocumentMoniker": "Pages\\Reservas.razor",
@@ -294,80 +462,83 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Register.cshtml",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
-              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
-              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
-              "ViewState": "AQIAADMAAAAAAAAAAAAAAD0AAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T03:46:41.238Z"
+              "DocumentIndex": 24,
+              "Title": "ReservaService.cs",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\ReservaService.cs",
+              "RelativeDocumentMoniker": "Services\\ReservaService.cs",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\ReservaService.cs",
+              "RelativeToolTip": "Services\\ReservaService.cs",
+              "ViewState": "AQIAAKwAAAAAAAAAAADwv9kAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-27T18:17:42.432Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "AnadirEditarLibro.razor",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Libros\\AnadirEditarLibro.razor",
-              "RelativeDocumentMoniker": "Pages\\Libros\\AnadirEditarLibro.razor",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Libros\\AnadirEditarLibro.razor",
-              "RelativeToolTip": "Pages\\Libros\\AnadirEditarLibro.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEUAAABTAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T17:29:05.736Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Catalogo.razor",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Catalogo.razor",
-              "RelativeDocumentMoniker": "Pages\\Catalogo.razor",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Catalogo.razor",
-              "RelativeToolTip": "Pages\\Catalogo.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAXAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T02:11:27.087Z",
+              "DocumentIndex": 17,
+              "Title": "MultaService.cs",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\MultaService.cs",
+              "RelativeDocumentMoniker": "Services\\MultaService.cs",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\MultaService.cs",
+              "RelativeToolTip": "Services\\MultaService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T18:20:23.935Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 19,
+              "Title": "IMultaService.cs",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\IMultaService.cs",
+              "RelativeDocumentMoniker": "Services\\IMultaService.cs",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\IMultaService.cs",
+              "RelativeToolTip": "Services\\IMultaService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA7AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T18:19:55.69Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Multa.cs",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\Models\\Multa.cs",
+              "RelativeDocumentMoniker": "Data\\Models\\Multa.cs",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\Models\\Multa.cs",
+              "RelativeToolTip": "Data\\Models\\Multa.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T17:50:58.121Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
               "Title": "ILibroService.cs",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\ILibroService.cs",
               "RelativeDocumentMoniker": "Services\\ILibroService.cs",
               "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\ILibroService.cs",
               "RelativeToolTip": "Services\\ILibroService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAYwA4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T17:17:14.361Z"
+              "WhenOpened": "2025-06-27T17:17:14.361Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "Prestamo.cs",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\Models\\Prestamo.cs",
-              "RelativeDocumentMoniker": "Data\\Models\\Prestamo.cs",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\Models\\Prestamo.cs",
-              "RelativeToolTip": "Data\\Models\\Prestamo.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAABbAAAA",
+              "DocumentIndex": 29,
+              "Title": "Register.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "ViewState": "AQIAADsAAAAAAAAAAIAwwEoAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T16:54:04.65Z"
+              "WhenOpened": "2025-06-27T03:53:22.731Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "RealizarPrestamo.razor",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Prestamos\\RealizarPrestamo.razor",
-              "RelativeDocumentMoniker": "Pages\\Prestamos\\RealizarPrestamo.razor",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Prestamos\\RealizarPrestamo.razor",
-              "RelativeToolTip": "Pages\\Prestamos\\RealizarPrestamo.razor",
-              "ViewState": "AQIAAEUAAAAAAAAAAAAAACYAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T23:44:15.361Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 27,
               "Title": "Registro.razor",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Registro.razor",
               "RelativeDocumentMoniker": "Pages\\Registro.razor",
@@ -379,7 +550,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 25,
               "Title": "MainLayout.razor",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Shared\\MainLayout.razor",
               "RelativeDocumentMoniker": "Shared\\MainLayout.razor",
@@ -391,43 +562,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Index.razor",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Index.razor",
-              "RelativeDocumentMoniker": "Pages\\Index.razor",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Index.razor",
-              "RelativeToolTip": "Pages\\Index.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T02:15:31.981Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "NavMenu.razor",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Shared\\NavMenu.razor",
-              "RelativeDocumentMoniker": "Shared\\NavMenu.razor",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Shared\\NavMenu.razor",
-              "RelativeToolTip": "Shared\\NavMenu.razor",
-              "ViewState": "AQIAAKMAAAAAAAAAAAAqwLQAAAAaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T02:11:57.79Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "Perfil.razor",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Perfil.razor",
-              "RelativeDocumentMoniker": "Pages\\Perfil.razor",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Perfil.razor",
-              "RelativeToolTip": "Pages\\Perfil.razor",
-              "ViewState": "AQIAAE4AAAAAAAAAAAAiwGUAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T17:47:46.824Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 26,
               "Title": "GestionRoles.razor",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Admin\\GestionRoles.razor",
               "RelativeDocumentMoniker": "Pages\\Admin\\GestionRoles.razor",
@@ -439,19 +574,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "LibroService.cs",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\LibroService.cs",
-              "RelativeDocumentMoniker": "Services\\LibroService.cs",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Services\\LibroService.cs",
-              "RelativeToolTip": "Services\\LibroService.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAcAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T17:17:31.574Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 31,
               "Title": "RevalidatingIdentityAuthenticationStateProvider.cs",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\RevalidatingIdentityAuthenticationStateProvider.cs",
               "RelativeDocumentMoniker": "Data\\RevalidatingIdentityAuthenticationStateProvider.cs",
@@ -463,19 +586,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "ProyectoBibliotecaContext.cs",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\ProyectoBibliotecaContext.cs",
-              "RelativeDocumentMoniker": "Data\\ProyectoBibliotecaContext.cs",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\ProyectoBibliotecaContext.cs",
-              "RelativeToolTip": "Data\\ProyectoBibliotecaContext.cs",
-              "ViewState": "AQIAAB8AAAAAAAAAAAAcwDwAAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T16:55:46.16Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 35,
               "Title": "TestForm.cshtml",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\TestForm.cshtml",
               "RelativeDocumentMoniker": "Pages\\TestForm.cshtml",
@@ -488,18 +599,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 33,
-              "Title": "ApplicationUser.cs",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\Models\\ApplicationUser.cs",
-              "RelativeDocumentMoniker": "Data\\Models\\ApplicationUser.cs",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\Models\\ApplicationUser.cs",
-              "RelativeToolTip": "Data\\Models\\ApplicationUser.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAqwA4AAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T04:44:58.225Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
               "Title": "Logout.razor",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\Logout.razor",
               "RelativeDocumentMoniker": "Pages\\Logout.razor",
@@ -511,7 +610,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 34,
               "Title": "TestForm.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Pages\\TestForm.cshtml.cs",
               "RelativeDocumentMoniker": "Pages\\TestForm.cshtml.cs",
@@ -524,19 +623,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "20250627232248_initialrelease.cs",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Migrations\\20250627232248_initialrelease.cs",
-              "RelativeDocumentMoniker": "Migrations\\20250627232248_initialrelease.cs",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Migrations\\20250627232248_initialrelease.cs",
-              "RelativeToolTip": "Migrations\\20250627232248_initialrelease.cs",
-              "ViewState": "AQIAAEoBAAAAAAAAAAAowPAAAAA+AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T23:22:54.746Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 32,
               "Title": "Libro.cs",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Data\\Models\\Libro.cs",
               "RelativeDocumentMoniker": "Data\\Models\\Libro.cs",
@@ -548,7 +635,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 36,
               "Title": "estilos.css",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\wwwroot\\css\\estilos.css",
               "RelativeDocumentMoniker": "wwwroot\\css\\estilos.css",
@@ -560,7 +647,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 37,
               "Title": "PrestamoDto.cs",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\DTOs\\PrestamoDto.cs",
               "RelativeDocumentMoniker": "DTOs\\PrestamoDto.cs",
@@ -572,7 +659,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 38,
               "Title": "CrearPrestamoDto.cs",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\DTOs\\CrearPrestamoDto.cs",
               "RelativeDocumentMoniker": "DTOs\\CrearPrestamoDto.cs",
@@ -584,7 +671,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 40,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -596,7 +683,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 39,
               "Title": "_ViewImports.cshtml",
               "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Areas\\Identity\\Pages\\_ViewImports.cshtml",
               "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\_ViewImports.cshtml",
@@ -605,18 +692,6 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-06-27T03:41:02.073Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "_LoginPartial.cshtml",
-              "DocumentMoniker": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Areas\\Identity\\Pages\\Shared\\_LoginPartial.cshtml",
-              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Shared\\_LoginPartial.cshtml",
-              "ToolTip": "C:\\Users\\Kevin\\source\\repos\\Programacion-3\\Areas\\Identity\\Pages\\Shared\\_LoginPartial.cshtml",
-              "RelativeToolTip": "Areas\\Identity\\Pages\\Shared\\_LoginPartial.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACMAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T02:28:21.047Z"
             }
           ]
         },

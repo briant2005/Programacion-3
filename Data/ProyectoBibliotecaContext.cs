@@ -17,7 +17,7 @@ namespace BBAPP.Data
         public DbSet<Libro> Libros { get; set; }
         public DbSet<Prestamo> Prestamos { get; set; }
         public DbSet<Reserva> Reservas { get; set; }
-
+        public DbSet<Multa> Multas { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder); // MUY IMPORTANTE: Llama al método base para que Identity configure sus tablas
@@ -46,6 +46,19 @@ namespace BBAPP.Data
                 .WithMany(u => u.Reservas)
                 .HasForeignKey(r => r.UsuarioId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Configurar relaciones para Multa (nuevo)
+            builder.Entity<Multa>()
+                .HasOne(m => m.Prestamo)
+                .WithMany() // Una multa puede no tener una colección directa en Prestamo si no la necesitas
+                .HasForeignKey(m => m.PrestamoId)
+                .OnDelete(DeleteBehavior.Restrict); // Evita la eliminación en cascada si se elimina un préstamo
+
+            builder.Entity<Multa>()
+                .HasOne(m => m.Usuario)
+                .WithMany() // Una multa puede no tener una colección directa en UsuarioAplicacion si no la necesitas
+                .HasForeignKey(m => m.UsuarioId)
+                .OnDelete(DeleteBehavior.Restrict); // Evita la eliminación en cascada si se elimina un usuario
 
             // La relación de Reserva a Prestamo ha sido eliminada por tu solicitud.
             // Esto significa que PrestamoId ya no será una clave foránea en la tabla Reservas.
